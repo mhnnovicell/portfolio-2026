@@ -12,10 +12,11 @@ import {
 import { EducationSection } from '@/components/sections/education';
 import { ExperienceSection } from '@/components/sections/experience';
 import { Navigation } from '@/components/sections/navigation';
-import { ProfileSection } from '@/components/sections/profileSection';
+import { ProfileSection } from '@/components/sections/profile';
 import { ProjectsSection } from '@/components/sections/projects';
 import { ScrollProgress } from '@/components/sections/scrollProgress';
 import { SkillsSection } from '@/components/sections/skills';
+import { TestimonialsSection } from '@/components/sections/testimonials';
 import { WhatIDo } from '@/components/sections/whatIDo';
 
 export default async function Home() {
@@ -41,6 +42,8 @@ export default async function Home() {
     fetchWhatIDo(),
   ]);
 
+  console.log(projects, 'projects page.tsx');
+
   return (
     <main className='min-h-screen bg-background'>
       <ScrollProgress />
@@ -51,13 +54,13 @@ export default async function Home() {
       <EducationSection education={education} certifications={certifications} />
       <ExperienceSection experiences={experiences} />
       <ProjectsSection projects={projects} />
+      <TestimonialsSection testimonials={testimonials} />
 
       {/* 
      
       <TechMarquee />
       <BentoGrid />
      
-      <TestimonialsSection testimonials={testimonials} />
       <ContactSection />
       <Footer /> */}
     </main>

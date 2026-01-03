@@ -23,6 +23,7 @@
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "sanity": "^4.22.0",
+    "sanity-plugin-cloudinary": "^1.4.1",
     "styled-components": "^6.1.19"
   },
   "devDependencies": {

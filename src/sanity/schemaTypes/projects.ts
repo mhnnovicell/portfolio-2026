@@ -23,17 +23,17 @@ export const project = defineType({
     defineField({
       name: 'image',
       title: 'Image',
-      type: 'image',
-      options: {
-        hotspot: true,
-      },
-      fields: [
-        defineField({
-          name: 'alt',
-          type: 'string',
-          title: 'Alternative text',
-        }),
-      ],
+      type: 'cloudinary.asset', // Changed from 'image'
+      // options: {
+      //   hotspot: true,
+      // },
+      // fields: [
+      //   defineField({
+      //     name: 'alt',
+      //     type: 'string',
+      //     title: 'Alternative text',
+      //   }),
+      // ],
     }),
     defineField({
       name: 'tags',

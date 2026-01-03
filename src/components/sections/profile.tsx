@@ -200,7 +200,7 @@ export function ProfileSection({ data }: ProfileSectionProps) {
           )}
           <div className='flex gap-2 w-full'>
             <motion.a
-              href='#contact'
+              href={`mailto:${profile?.social?.email || ''}`}
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
               className='flex-1 px-4 py-2.5 bg-primary text-primary-foreground rounded-full font-medium text-sm text-center transition-all duration-300 hover:shadow-lg hover:shadow-primary/20'

@@ -81,7 +81,7 @@ export function ProjectsSection({
                   src={
                     typeof project.image === 'string'
                       ? project.image
-                      : project.image?.asset?.url || '/placeholder.svg'
+                      : (project.image?.url ?? '')
                   }
                   alt={project.title ?? ''}
                   fill
@@ -127,7 +127,7 @@ export function ProjectsSection({
                   {project.description}
                 </p>
                 <div className='flex flex-wrap gap-2'>
-                  {project.tags.map((tag) => (
+                  {project?.tags?.map((tag) => (
                     <Tag key={tag}>{tag}</Tag>
                   ))}
                 </div>

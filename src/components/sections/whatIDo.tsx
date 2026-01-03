@@ -5,7 +5,7 @@ import { Section } from '@/components/ui/section';
 import { AnimatedCard } from '@/components/ui/animatedCard';
 import { IconBox } from '@/components/ui/iconBox';
 import type { LucideIcon } from 'lucide-react';
-import type { WhatIDo } from '../../../sanity.types';
+import type { Whatido } from '../../../sanity.types';
 
 const defaultwhatIDoItems = [
   {
@@ -64,7 +64,7 @@ const defaultwhatIDoItems = [
 ];
 
 interface WhatIDoProps {
-  items?: WhatIDo[] | null;
+  items?: Whatido[] | null;
 }
 
 export function WhatIDo({ items }: WhatIDoProps) {

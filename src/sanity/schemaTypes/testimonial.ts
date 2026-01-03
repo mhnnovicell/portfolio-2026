@@ -27,17 +27,17 @@ export const testimonial = defineType({
     defineField({
       name: 'image',
       title: 'Image',
-      type: 'image',
+      type: 'cloudinary.asset', // Changed from 'image'
       options: {
         hotspot: true,
       },
-      fields: [
-        defineField({
-          name: 'alt',
-          type: 'string',
-          title: 'Alternative text',
-        }),
-      ],
+      // fields: [
+      //   defineField({
+      //     name: 'alt',
+      //     type: 'string',
+      //     title: 'Alternative text',
+      //   }),
+      // ],
     }),
     defineField({
       name: 'content',

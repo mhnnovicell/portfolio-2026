@@ -13,9 +13,9 @@
  */
 
 // Source: schema.json
-export type WhatIDo = {
+export type Whatido = {
   _id: string;
-  _type: "whatIDo";
+  _type: "whatido";
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
@@ -59,38 +59,32 @@ export type Testimonial = {
   name?: string;
   role?: string;
   company?: string;
-  image?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt?: string;
-    _type: "image";
-  };
+  image?: CloudinaryAsset;
   content?: string;
   rating?: number;
   order?: number;
 };
 
-export type SanityImageCrop = {
-  _type: "sanity.imageCrop";
-  top?: number;
-  bottom?: number;
-  left?: number;
-  right?: number;
-};
-
-export type SanityImageHotspot = {
-  _type: "sanity.imageHotspot";
-  x?: number;
-  y?: number;
-  height?: number;
+export type CloudinaryAsset = {
+  _type: "cloudinary.asset";
+  public_id?: string;
+  resource_type?: string;
+  type?: string;
+  format?: string;
+  version?: number;
+  url?: string;
+  secure_url?: string;
   width?: number;
+  height?: number;
+  bytes?: number;
+  duration?: number;
+  tags?: Array<string>;
+  created_at?: string;
+  derived?: Array<{
+    _key: string;
+  } & CloudinaryAssetDerived>;
+  access_mode?: string;
+  context?: CloudinaryAssetContext;
 };
 
 export type Skill = {
@@ -112,19 +106,7 @@ export type Project = {
   _rev: string;
   title?: string;
   description?: string;
-  image?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt?: string;
-    _type: "image";
-  };
+  image?: CloudinaryAsset;
   tags?: Array<string>;
   githubUrl?: string;
   liveUrl?: string;
@@ -144,19 +126,7 @@ export type Profile = {
   location?: string;
   availableForHire?: boolean;
   email?: string;
-  profileImage?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt?: string;
-    _type: "image";
-  };
+  profileImage?: CloudinaryAsset;
   social?: {
     github?: string;
     linkedin?: string;
@@ -211,6 +181,24 @@ export type Certification = {
   year?: string;
 };
 
+export type CloudinaryAssetContextCustom = {
+  _type: "cloudinary.assetContextCustom";
+  alt?: string;
+  caption?: string;
+};
+
+export type CloudinaryAssetContext = {
+  _type: "cloudinary.assetContext";
+  custom?: CloudinaryAssetContextCustom;
+};
+
+export type CloudinaryAssetDerived = {
+  _type: "cloudinary.assetDerived";
+  raw_transformation?: string;
+  url?: string;
+  secure_url?: string;
+};
+
 export type SanityImagePaletteSwatch = {
   _type: "sanity.imagePaletteSwatch";
   background?: string;
@@ -246,6 +234,22 @@ export type SanityImageMetadata = {
   blurHash?: string;
   hasAlpha?: boolean;
   isOpaque?: boolean;
+};
+
+export type SanityImageHotspot = {
+  _type: "sanity.imageHotspot";
+  x?: number;
+  y?: number;
+  height?: number;
+  width?: number;
+};
+
+export type SanityImageCrop = {
+  _type: "sanity.imageCrop";
+  top?: number;
+  bottom?: number;
+  left?: number;
+  right?: number;
 };
 
 export type SanityFileAsset = {
@@ -313,5 +317,5 @@ export type Slug = {
   source?: string;
 };
 
-export type AllSanitySchemaTypes = WhatIDo | Navigation | Testimonial | SanityImageCrop | SanityImageHotspot | Skill | Project | Profile | Experience | Education | Certification | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint | Slug;
+export type AllSanitySchemaTypes = Whatido | Navigation | Testimonial | CloudinaryAsset | Skill | Project | Profile | Experience | Education | Certification | CloudinaryAssetContextCustom | CloudinaryAssetContext | CloudinaryAssetDerived | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint | Slug;
 export declare const internalGroqTypeReferenceTo: unique symbol;

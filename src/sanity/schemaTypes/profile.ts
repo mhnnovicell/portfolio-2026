@@ -50,17 +50,10 @@ export const profile = defineType({
     defineField({
       name: 'profileImage',
       title: 'Profile Image',
-      type: 'image',
+      type: 'cloudinary.asset', // Changed from 'image'
       options: {
         hotspot: true,
       },
-      fields: [
-        defineField({
-          name: 'alt',
-          type: 'string',
-          title: 'Alternative text',
-        }),
-      ],
     }),
     defineField({
       name: 'social',

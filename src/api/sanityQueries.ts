@@ -7,7 +7,7 @@ import {
   Certification,
   Skill,
   Navigation,
-  WhatIDo,
+  Whatido,
 } from '../../sanity.types';
 import { client } from '../sanity/lib/client';
 
@@ -21,7 +21,11 @@ export const profileQuery = `*[_type == "profile"][0] {
   location,
   availableForHire,
   email,
-  "profileImage": profileImage.asset->url,
+  "profileImage": select(
+    defined(profileImage.asset) => profileImage.asset->url,
+    defined(profileImage.public_id) => profileImage.url,
+    profileImage
+  ),
   social {
     github,
     linkedin,
@@ -40,7 +44,11 @@ export const projectsQuery = `*[_type == "project"] | order(order asc) {
   _id,
   title,
   description,
-  "image": image.asset->url,
+  "image": select(
+    defined(image.asset) => image.asset->url,
+    defined(image.public_id) => image.url,
+    image
+  ),
   tags,
   githubUrl,
   liveUrl
@@ -65,7 +73,11 @@ export const testimonialsQuery = `*[_type == "testimonial"] | order(order asc) {
   name,
   role,
   company,
-  "image": image.asset->url,
+  "image": select(
+    defined(image.asset) => image.asset->url,
+    defined(image.public_id) => image.url,
+    image
+  ),
   content,
   rating
 }`;
@@ -167,5 +179,5 @@ export async function fetchNavigation() {
 }
 
 export async function fetchWhatIDo() {
-  return safeFetch<WhatIDo[]>(whatIDoQuery);
+  return safeFetch<Whatido[]>(whatIDoQuery);
 }
