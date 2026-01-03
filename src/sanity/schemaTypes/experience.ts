@@ -1,11 +1,11 @@
-import { TrendingUp } from 'lucide-react';
+import { BadgeDollarSign } from 'lucide-react';
 import { defineField, defineType } from 'sanity';
 
 export const experience = defineType({
   name: 'experience',
   title: 'Work Experience',
   type: 'document',
-  icon: TrendingUp,
+  icon: BadgeDollarSign,
 
   fields: [
     defineField({

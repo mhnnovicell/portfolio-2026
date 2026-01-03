@@ -15,9 +15,13 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Alex Chen | Frontend Developer',
+  title: 'mikkelraev.dk',
   description:
-    'Creative frontend developer specializing in React, Next.js, and modern web experiences',
+    'mikkelraev.dk er en personlig portefølje drevet af Mikkel Hornbech Nielsen',
+  keywords: [
+    'portefølje, portfolio, resume, CV, curicum vitale, Mikkel, Hornbech, Nielsen, mikkelraev, mikkel, raev, ræv, hjemmeside, frontend, grafik, web, udvikling, UI, UX, kode, Mikkel Hornbech Nielsen',
+  ],
+  authors: [{ name: 'Mikkel Hornbech Nielsen', url: 'https://mikkelraev.dk' }],
 };
 
 export default function RootLayout({
