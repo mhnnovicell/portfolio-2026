@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import Script from 'next/script';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -31,6 +32,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
+      <head>
+        <Script
+          id='Cookiebot'
+          async={true}
+          src='https://consent.cookiebot.com/uc.js'
+          strategy='beforeInteractive'
+          data-cbid='b843d607-a3f8-40df-a756-65d3e5e1f9ee'
+          data-blockingmode='auto'
+          type='text/javascript'
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
