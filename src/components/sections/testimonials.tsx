@@ -82,6 +82,7 @@ export function TestimonialsSection({
                     alt={testimonial.name || 'Testimonial'}
                     width={96}
                     height={96}
+                    sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
                     className='w-24 h-24 rounded-2xl object-cover border-2 border-border transition-transform duration-500 group-hover:scale-105'
                   />
                   <div className='absolute inset-0 rounded-2xl ring-2 ring-primary/20 ring-offset-2 ring-offset-background opacity-0 group-hover:opacity-100 transition-opacity duration-300' />

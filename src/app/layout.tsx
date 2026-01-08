@@ -9,11 +9,13 @@ import { ServiceWorkerRegistration } from '@/components/ServiceWorkerRegistratio
 const geistSans = Geist({
   variable: '--font-geist-sans',
   subsets: ['latin'],
+  display: 'swap',
 });
 
 const geistMono = Geist_Mono({
   variable: '--font-geist-mono',
   subsets: ['latin'],
+  display: 'swap',
 });
 
 export const viewport: Viewport = {
@@ -28,6 +30,7 @@ export const metadata: Metadata = {
   keywords: [
     'portefølje, portfolio, resume, CV, curicum vitale, Mikkel, Hornbech, Nielsen, mikkelraev, mikkel, raev, ræv, hjemmeside, frontend, grafik, web, udvikling, UI, UX, kode, Mikkel Hornbech Nielsen',
   ],
+  metadataBase: new URL('https://mikkelraev.dk'),
   authors: [{ name: 'Mikkel Hornbech Nielsen', url: 'https://mikkelraev.dk' }],
   openGraph: {
     title: 'Mikkel Hornbech Nielsen | Frontend Developer',
