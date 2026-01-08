@@ -53,11 +53,7 @@ export default async function Home() {
       <TestimonialsSection testimonials={testimonials} />
 
       {/* 
-     
-      <TechMarquee />
-      <BentoGrid />
-     
-      <ContactSection />
+    
       <Footer /> */}
     </main>
   );
