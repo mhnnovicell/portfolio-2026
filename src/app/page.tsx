@@ -42,8 +42,6 @@ export default async function Home() {
     fetchWhatIDo(),
   ]);
 
-  console.log(projects, 'projects page.tsx');
-
   return (
     <main className='min-h-screen bg-background'>
       <ScrollProgress />
