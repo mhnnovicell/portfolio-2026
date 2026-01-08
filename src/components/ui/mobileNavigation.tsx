@@ -10,6 +10,7 @@ interface MobileNavigationProps {
   isOpen: boolean;
   onClose: () => void;
   navItems: Navigation['navItems'];
+  activeSection: string;
 }
 
 const overlayVariants = {
@@ -54,6 +55,7 @@ export function MobileNavigation({
   isOpen,
   onClose,
   navItems,
+  activeSection,
 }: MobileNavigationProps) {
   // Prevent body scroll when menu is open
   useEffect(() => {
@@ -137,45 +139,62 @@ export function MobileNavigation({
               className='flex-1 flex flex-col px-6 py-8 space-y-2 overflow-y-auto'
               aria-label='Mobile navigation links'
             >
-              {navItems?.map((item, i) => (
-                <motion.div
-                  key={item.label}
-                  custom={i}
-                  variants={itemVariants}
-                  initial='hidden'
-                  animate='visible'
-                >
-                  <Link
-                    href={item.href ?? ''}
-                    onClick={onClose}
-                    className='block focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background rounded-2xl'
-                    tabIndex={0}
+              {navItems?.map((item, i) => {
+                const isActive = activeSection === item.href;
+                return (
+                  <motion.div
+                    key={item.label}
+                    custom={i}
+                    variants={itemVariants}
+                    initial='hidden'
+                    animate='visible'
                   >
-                    <motion.div
-                      whileHover={{ x: 10 }}
-                      whileTap={{ scale: 0.98 }}
-                      className='group relative overflow-hidden rounded-2xl border border-border bg-linear-to-br from-card to-secondary/30 p-6 transition-all duration-500'
+                    <Link
+                      href={item.href ?? ''}
+                      onClick={onClose}
+                      className='block focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background rounded-2xl'
+                      tabIndex={0}
                     >
-                      {/* Hover glow effect */}
-                      <div className='absolute inset-0 bg-linear-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500' />
+                      <motion.div
+                        whileHover={{ x: 10 }}
+                        whileTap={{ scale: 0.98 }}
+                        className={`group relative overflow-hidden rounded-2xl border transition-all duration-500 ${
+                          isActive
+                            ? 'border-primary bg-linear-to-br from-primary/10 to-secondary/30'
+                            : 'border-border bg-linear-to-br from-card to-secondary/30'
+                        } p-6`}
+                      >
+                        {/* Hover glow effect */}
+                        <div className='absolute inset-0 bg-linear-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500' />
 
-                      <div className='relative z-10 flex items-center justify-between'>
-                        <span className='text-2xl font-semibold text-foreground group-hover:text-primary transition-colors'>
-                          {item.label}
-                        </span>
-                        <motion.div
-                          initial={{ x: -10, opacity: 0 }}
-                          whileHover={{ x: 0, opacity: 1 }}
-                          className='text-muted-foreground'
-                          aria-hidden='true'
-                        >
-                          →
-                        </motion.div>
-                      </div>
-                    </motion.div>
-                  </Link>
-                </motion.div>
-              ))}
+                        <div className='relative z-10 flex items-center justify-between'>
+                          <span
+                            className={`text-2xl font-semibold transition-colors ${
+                              isActive
+                                ? 'text-primary'
+                                : 'text-foreground group-hover:text-primary'
+                            }`}
+                          >
+                            {item.label}
+                          </span>
+                          <motion.div
+                            initial={{ x: -10, opacity: 0 }}
+                            whileHover={{ x: 0, opacity: 1 }}
+                            className={`transition-colors ${
+                              isActive
+                                ? 'text-primary'
+                                : 'text-muted-foreground'
+                            }`}
+                            aria-hidden='true'
+                          >
+                            →
+                          </motion.div>
+                        </div>
+                      </motion.div>
+                    </Link>
+                  </motion.div>
+                );
+              })}
             </nav>
           </motion.div>
         </>

@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { Github, Linkedin, Twitter, Mail, Menu } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import type { Navigation } from '../../../sanity.types';
 import { MobileNavigation } from '@/components/ui/mobileNavigation';
 
@@ -28,20 +28,66 @@ const getSocialIcon = (platform: string) => {
 
 export function Navigation({ data }: NavigationProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('');
 
   const logo = data?.logo || 'mikkelraev';
   const logoSuffix = data?.logoSuffix || '.dk';
-  const navItems = data?.navItems || [
-    { label: 'About', href: '#about', _key: 'about' },
-    { label: 'Projects', href: '#projects', _key: 'projects' },
-    { label: 'Skills', href: '#skills', _key: 'skills' },
-    { label: 'Contact', href: '#contact', _key: 'contact' },
-  ];
-  const socialLinks = data?.socialLinks || [
-    { platform: 'github', url: 'https://github.com' },
-    { platform: 'linkedin', url: 'https://linkedin.com' },
-    { platform: 'twitter', url: 'https://twitter.com' },
-  ];
+  const navItems = useMemo(
+    () =>
+      data?.navItems || [
+        { label: 'About', href: '#about', _key: 'about' },
+        { label: 'Projects', href: '#projects', _key: 'projects' },
+        { label: 'Skills', href: '#skills', _key: 'skills' },
+        { label: 'Contact', href: '#contact', _key: 'contact' },
+      ],
+    [data?.navItems]
+  );
+
+  const socialLinks = useMemo(
+    () =>
+      data?.socialLinks || [
+        { platform: 'github', url: 'https://github.com' },
+        { platform: 'linkedin', url: 'https://linkedin.com' },
+        { platform: 'twitter', url: 'https://twitter.com' },
+      ],
+    [data?.socialLinks]
+  );
+
+  // Track active section based on scroll position
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = navItems
+        .map((item) => {
+          const id = item.href?.replace('#', '');
+          return document.getElementById(id ?? '');
+        })
+        .filter(Boolean) as HTMLElement[];
+
+      // Find the section currently in view
+      const scrollPosition = window.scrollY + window.innerHeight / 3;
+
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const section = sections[i];
+        if (section && section.offsetTop <= scrollPosition) {
+          const newHash = `#${section.id}`;
+          setActiveSection(newHash);
+
+          // Update URL hash without triggering scroll
+          if (window.location.hash !== newHash) {
+            window.history.replaceState(null, '', newHash);
+          }
+          break;
+        }
+      }
+    };
+
+    // Initial check
+    handleScroll();
+
+    // Listen to scroll events
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [navItems]);
 
   return (
     <>
@@ -64,21 +110,40 @@ export function Navigation({ data }: NavigationProps) {
 
           {/* Desktop Navigation */}
           <nav className='hidden md:flex items-center gap-8'>
-            {navItems.map((item, i) => (
-              <motion.div
-                key={item.label}
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 * i, duration: 0.4 }}
-              >
-                <Link
-                  href={item.href ?? ''}
-                  className='text-muted-foreground hover:text-foreground transition-colors duration-300 text-sm font-medium'
+            {navItems.map((item, i) => {
+              const isActive = activeSection === item.href;
+              return (
+                <motion.div
+                  key={item.label}
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 * i, duration: 0.4 }}
                 >
-                  {item.label}
-                </Link>
-              </motion.div>
-            ))}
+                  <Link
+                    href={item.href ?? ''}
+                    className={`relative text-sm font-medium transition-colors duration-300 ${
+                      isActive
+                        ? 'text-foreground'
+                        : 'text-muted-foreground hover:text-foreground'
+                    }`}
+                  >
+                    {item.label}
+                    {isActive && (
+                      <motion.div
+                        layoutId='activeSection'
+                        className='absolute -bottom-1 left-0 right-0 h-0.5 bg-primary'
+                        initial={false}
+                        transition={{
+                          type: 'spring',
+                          stiffness: 380,
+                          damping: 30,
+                        }}
+                      />
+                    )}
+                  </Link>
+                </motion.div>
+              );
+            })}
           </nav>
 
           {/* Social Links & Mobile Menu Button */}
@@ -124,6 +189,7 @@ export function Navigation({ data }: NavigationProps) {
         isOpen={isMobileMenuOpen}
         onClose={() => setIsMobileMenuOpen(false)}
         navItems={navItems}
+        activeSection={activeSection}
       />
     </>
   );
