@@ -107,9 +107,9 @@ export function TestimonialsSection({
                   <div className='absolute inset-0 rounded-full ring-2 ring-primary/20 ring-offset-2 ring-offset-background opacity-0 group-hover:opacity-100 transition-opacity' />
                 </div>
                 <div>
-                  <h4 className='font-semibold text-foreground'>
+                  <h3 className='font-semibold text-foreground'>
                     {testimonial.name}
-                  </h4>
+                  </h3>
                   <p className='text-sm text-muted-foreground'>
                     {testimonial.role} at {testimonial.company}
                   </p>

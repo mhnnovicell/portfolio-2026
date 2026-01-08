@@ -70,10 +70,14 @@ export function ProjectsSection({
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: i * 0.15 }}
+            transition={{
+              duration: 0.6,
+              delay: i * 0.15,
+              ease: 'easeOut',
+            }}
             className='group relative'
           >
-            <div className='relative overflow-hidden rounded-2xl border border-border bg-card transition-all duration-500 group-hover:border-muted-foreground/50'>
+            <article className='relative overflow-hidden rounded-2xl border border-border bg-card transition-all duration-500 group-hover:border-muted-foreground/50'>
               {/* Image container */}
               <div className='relative h-64 overflow-hidden'>
                 <Image
@@ -82,39 +86,41 @@ export function ProjectsSection({
                       ? project.image
                       : (project.image?.url ?? '')
                   }
-                  alt={project.title ?? ''}
+                  alt={`Screenshot of ${project.title ?? 'project'}`}
                   fill
                   className='object-cover transition-transform duration-700 group-hover:scale-110'
                 />
                 <div className='absolute inset-0 bg-linear-to-t from-card via-card/50 to-transparent' />
 
                 {/* Hover overlay with links */}
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  whileHover={{ opacity: 1 }}
-                  className='absolute inset-0 bg-background/80 flex items-center justify-center gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300'
-                >
+                <div className='absolute inset-0 bg-background/80 flex items-center justify-center gap-4 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-300'>
                   {project.githubUrl && (
                     <motion.a
                       href={project.githubUrl}
+                      target='_blank'
+                      rel='noopener noreferrer'
+                      aria-label={`View ${project.title ?? 'project'} source code on GitHub`}
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.9 }}
-                      className='p-3 bg-secondary rounded-full text-foreground hover:bg-primary hover:text-primary-foreground transition-colors'
+                      className='p-3 bg-secondary rounded-full text-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background transition-colors'
                     >
-                      <Github size={20} />
+                      <Github size={20} aria-hidden='true' />
                     </motion.a>
                   )}
                   {project.liveUrl && (
                     <motion.a
                       href={project.liveUrl}
+                      target='_blank'
+                      rel='noopener noreferrer'
+                      aria-label={`View ${project.title ?? 'project'} live demo`}
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.9 }}
-                      className='p-3 bg-secondary rounded-full text-foreground hover:bg-primary hover:text-primary-foreground transition-colors'
+                      className='p-3 bg-secondary rounded-full text-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background transition-colors'
                     >
-                      <ExternalLink size={20} />
+                      <ExternalLink size={20} aria-hidden='true' />
                     </motion.a>
                   )}
-                </motion.div>
+                </div>
               </div>
 
               {/* Content */}
@@ -131,7 +137,7 @@ export function ProjectsSection({
                   ))}
                 </div>
               </div>
-            </div>
+            </article>
           </motion.div>
         ))}
       </div>

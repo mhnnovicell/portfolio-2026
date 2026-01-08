@@ -77,6 +77,7 @@ export function ProfileSection({ data }: ProfileSectionProps) {
                 fill
                 className='object-cover'
                 priority
+                fetchPriority='high'
               />
             </div>
             {profile.availableForHire && (
@@ -85,6 +86,8 @@ export function ProfileSection({ data }: ProfileSectionProps) {
                 animate={{ scale: 1 }}
                 transition={{ delay: 0.8, type: 'spring', stiffness: 200 }}
                 className='absolute bottom-2 right-2 w-5 h-5 bg-green-500 rounded-full border-2 border-background'
+                role='status'
+                aria-label='Available for work'
                 title='Available for work'
               />
             )}
@@ -118,6 +121,8 @@ export function ProfileSection({ data }: ProfileSectionProps) {
         <motion.div
           variants={itemVariants}
           className='bg-linear-to-br from-card to-card/50 border border-border rounded-3xl p-5 flex flex-col items-center justify-center text-center'
+          role='group'
+          aria-label='Projects delivered statistic'
         >
           <span className='text-3xl md:text-4xl font-bold text-foreground'>
             {profile?.stats?.projects}
@@ -130,6 +135,8 @@ export function ProfileSection({ data }: ProfileSectionProps) {
         <motion.div
           variants={itemVariants}
           className='bg-linear-to-br from-card to-card/50 border border-border rounded-3xl p-5 flex flex-col items-center justify-center text-center'
+          role='group'
+          aria-label='Years of experience statistic'
         >
           <span className='text-3xl md:text-4xl font-bold text-foreground'>
             {profile?.stats?.yearsExperience}
@@ -140,6 +147,8 @@ export function ProfileSection({ data }: ProfileSectionProps) {
         <motion.div
           variants={itemVariants}
           className='bg-linear-to-br from-card to-card/50 border border-border rounded-3xl p-5 flex flex-col items-center justify-center text-center'
+          role='group'
+          aria-label='Happy clients statistic'
         >
           <span className='text-3xl md:text-4xl font-bold text-foreground'>
             {profile?.stats?.clients}
@@ -163,6 +172,7 @@ export function ProfileSection({ data }: ProfileSectionProps) {
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
               className='flex-1 px-4 py-2.5 bg-primary text-primary-foreground rounded-full font-medium text-sm text-center transition-all duration-300 hover:shadow-lg hover:shadow-primary/20'
+              aria-label={`Contact me via email at ${profile?.social?.email || 'email'}`}
             >
               Kontakt mig
             </motion.a>
@@ -182,6 +192,7 @@ export function ProfileSection({ data }: ProfileSectionProps) {
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
             className='px-6 py-2.5 border border-border text-foreground rounded-full font-medium text-sm transition-all duration-300 hover:bg-card hover:border-muted-foreground whitespace-nowrap'
+            aria-label='Navigate to projects section'
           >
             Se mit arbejde
           </motion.a>
@@ -199,8 +210,9 @@ export function ProfileSection({ data }: ProfileSectionProps) {
               rel='noopener noreferrer'
               whileHover={{ scale: 1.1, y: -2 }}
               className='p-2.5 rounded-full bg-muted/50 text-muted-foreground hover:text-foreground hover:bg-muted transition-colors'
+              aria-label='Visit my GitHub profile'
             >
-              <Github size={20} />
+              <Github size={20} aria-hidden='true' />
             </motion.a>
           )}
           {profile?.social?.linkedin && (
@@ -210,8 +222,9 @@ export function ProfileSection({ data }: ProfileSectionProps) {
               rel='noopener noreferrer'
               whileHover={{ scale: 1.1, y: -2 }}
               className='p-2.5 rounded-full bg-muted/50 text-muted-foreground hover:text-foreground hover:bg-muted transition-colors'
+              aria-label='Connect with me on LinkedIn'
             >
-              <Linkedin size={20} />
+              <Linkedin size={20} aria-hidden='true' />
             </motion.a>
           )}
           {profile?.social?.twitter && (
@@ -221,8 +234,9 @@ export function ProfileSection({ data }: ProfileSectionProps) {
               rel='noopener noreferrer'
               whileHover={{ scale: 1.1, y: -2 }}
               className='p-2.5 rounded-full bg-muted/50 text-muted-foreground hover:text-foreground hover:bg-muted transition-colors'
+              aria-label='Follow me on Twitter'
             >
-              <Twitter size={20} />
+              <Twitter size={20} aria-hidden='true' />
             </motion.a>
           )}
           {profile?.social?.email && (
@@ -230,8 +244,9 @@ export function ProfileSection({ data }: ProfileSectionProps) {
               href={`mailto:${profile.social.email}`}
               whileHover={{ scale: 1.1, y: -2 }}
               className='p-2.5 rounded-full bg-muted/50 text-muted-foreground hover:text-foreground hover:bg-muted transition-colors'
+              aria-label={`Send me an email at ${profile.social.email}`}
             >
-              <Mail size={20} />
+              <Mail size={20} aria-hidden='true' />
             </motion.a>
           )}
         </motion.div>
