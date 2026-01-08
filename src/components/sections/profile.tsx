@@ -47,7 +47,10 @@ export function ProfileSection({ data }: ProfileSectionProps) {
   };
 
   return (
-    <section className='min-h-screen flex flex-col justify-center px-4 md:px-6 pt-24 pb-16 relative overflow-hidden'>
+    <section
+      className='min-h-screen flex flex-col justify-center px-4 md:px-6 pt-24 pb-16 relative overflow-hidden'
+      id='about'
+    >
       {/* Background gradient */}
       <div className='absolute inset-0 bg-linear-to-b from-card/50 via-background to-background' />
 

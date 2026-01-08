@@ -60,9 +60,8 @@ export function ProjectsSection({
   return (
     <Section
       id='projects'
-      title='Featured Projects'
-      description='A selection of recent work showcasing my skills and passion for building great products.'
-      background='gradient'
+      title='Projekter'
+      description='Et udvalg af nylige projekter, der viser mine færdigheder og min passion for at bygge gode produkter.'
     >
       <div className='grid grid-cols-1 md:grid-cols-2 gap-8'>
         {projects.map((project, i) => (

@@ -86,9 +86,9 @@ export function ExperienceSection({
 
   return (
     <Section
-      id='experience'
-      title='Work Experience'
-      description='A journey through my professional career, building products that matter.'
+      id='work'
+      title='Arbejdserfaring'
+      description='En rejse gennem min professionelle karriere, hvor jeg har bygget produkter der betyder noget.'
     >
       <div className='max-w-7xl mx-auto relative z-10'>
         <div className='relative'>

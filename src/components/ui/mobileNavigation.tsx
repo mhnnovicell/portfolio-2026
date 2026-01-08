@@ -134,7 +134,7 @@ export function MobileNavigation({
 
             {/* Navigation Items */}
             <nav
-              className='flex-1 flex flex-col justify-center px-6 py-8 space-y-2'
+              className='flex-1 flex flex-col px-6 py-8 space-y-2 overflow-y-auto'
               aria-label='Mobile navigation links'
             >
               {navItems?.map((item, i) => (

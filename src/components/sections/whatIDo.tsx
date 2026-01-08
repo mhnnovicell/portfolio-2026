@@ -72,9 +72,9 @@ export function WhatIDo({ items }: WhatIDoProps) {
 
   return (
     <Section
-      id='about'
-      title='What I Do'
-      description='Combining technical expertise with creative thinking to deliver exceptional digital products.'
+      id='whatido'
+      title='Filosofi'
+      description='Kombinerer teknisk ekspertise med kreativ tænkning for at levere exceptionelle digitale produkter.'
     >
       <div className='relative z-10 max-w-6xl mx-auto w-full grid grid-cols-1 md:grid-cols-3 gap-4'>
         {whatIDoItems.map((item, i) => {

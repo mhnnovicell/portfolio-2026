@@ -56,7 +56,12 @@ export const navigation = defineType({
                 ],
               },
             },
-            { name: 'url', type: 'url', title: 'URL' },
+            {
+              name: 'url',
+              type: 'string',
+              title: 'URL',
+              description: 'For email, enter: mailto:your@email.com',
+            },
           ],
         },
       ],

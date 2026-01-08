@@ -1,7 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { GraduationCap, Award, BookOpen, Calendar } from 'lucide-react';
+import { GraduationCap, BookOpen, Calendar } from 'lucide-react';
 import { Section } from '@/components/ui/section';
 import { AnimatedCard } from '@/components/ui/animatedCard';
 import { IconBox } from '@/components/ui/iconBox';
@@ -54,28 +53,11 @@ export function EducationSection({
     },
   ];
 
-  const certifications = sanityCertifications || [
-    {
-      _id: '1',
-      name: 'AWS Certified Developer',
-      issuer: 'Amazon Web Services',
-      year: '2023',
-    },
-    {
-      _id: '2',
-      name: 'Google Cloud Professional',
-      issuer: 'Google',
-      year: '2022',
-    },
-    { _id: '3', name: 'Meta Frontend Developer', issuer: 'Meta', year: '2022' },
-    { _id: '4', name: 'TypeScript Expert', issuer: 'Microsoft', year: '2021' },
-  ];
-
   return (
     <Section
       id='education'
-      title='Education & Certifications'
-      description='Academic background and professional certifications that shape my expertise.'
+      title='Uddannelse'
+      description='Min akademiske baggrund og certificeringer inden for teknologi og udvikling.'
       background='accent'
     >
       {/* Bento grid layout */}

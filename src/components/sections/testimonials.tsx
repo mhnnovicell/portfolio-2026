@@ -59,8 +59,8 @@ export function TestimonialsSection({
   return (
     <Section
       id='testimonials'
-      title='What People Say'
-      description='Feedback from colleagues and clients I have had the pleasure of working with.'
+      title='Udtalelser'
+      description='Feedback fra kolleger og klienter, som jeg har haft fornøjelsen af at arbejde med.'
     >
       <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
         {testimonials.map((testimonial, i) => (
