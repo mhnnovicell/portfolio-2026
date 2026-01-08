@@ -3,7 +3,6 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
-import Script from 'next/script';
 import { ServiceWorkerRegistration } from '@/components/ServiceWorkerRegistration';
 
 const geistSans = Geist({
@@ -184,13 +183,13 @@ export default function RootLayout({
           type='application/ld+json'
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        <Script
+        {/* <Script
           id='Cookiebot'
           src='https://consent.cookiebot.com/uc.js'
           strategy='afterInteractive'
           data-cbid='b843d607-a3f8-40df-a756-65d3e5e1f9ee'
           data-blockingmode='auto'
-        />
+        /> */}
         <ServiceWorkerRegistration />
         {children}
         <Analytics />
