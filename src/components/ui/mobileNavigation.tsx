@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { X } from 'lucide-react';
 import type { Navigation } from '../../../sanity.types';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 interface MobileNavigationProps {
   isOpen: boolean;
@@ -57,6 +57,17 @@ export function MobileNavigation({
   navItems,
   activeSection,
 }: MobileNavigationProps) {
+  const menuRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const firstFocusableRef = useRef<HTMLAnchorElement>(null);
+
+  // Focus management - trap focus within menu
+  useEffect(() => {
+    if (isOpen && closeButtonRef.current) {
+      closeButtonRef.current.focus();
+    }
+  }, [isOpen]);
+
   // Prevent body scroll when menu is open
   useEffect(() => {
     if (isOpen) {
@@ -87,10 +98,50 @@ export function MobileNavigation({
     return () => document.removeEventListener('keydown', handleEscape);
   }, [isOpen, onClose]);
 
+  // Focus trap - handle Tab key to keep focus within menu
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleTabKey = (e: KeyboardEvent) => {
+      if (e.key !== 'Tab') return;
+
+      const menuElement = menuRef.current;
+      if (!menuElement) return;
+
+      const focusableElements = menuElement.querySelectorAll<HTMLElement>(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      );
+      const firstElement = focusableElements[0];
+      const lastElement = focusableElements[focusableElements.length - 1];
+
+      if (e.shiftKey) {
+        // Shift + Tab
+        if (document.activeElement === firstElement) {
+          lastElement?.focus();
+          e.preventDefault();
+        }
+      } else {
+        // Tab
+        if (document.activeElement === lastElement) {
+          firstElement?.focus();
+          e.preventDefault();
+        }
+      }
+    };
+
+    document.addEventListener('keydown', handleTabKey);
+    return () => document.removeEventListener('keydown', handleTabKey);
+  }, [isOpen]);
+
   return (
     <AnimatePresence>
       {isOpen && (
         <>
+          {/* Screen reader announcement */}
+          <div className='sr-only' role='status' aria-live='polite'>
+            Navigation menu opened. Press Escape to close.
+          </div>
+
           {/* Backdrop */}
           <motion.div
             variants={overlayVariants}
@@ -104,40 +155,44 @@ export function MobileNavigation({
 
           {/* Menu Panel */}
           <motion.div
+            ref={menuRef}
             variants={menuVariants}
             initial='hidden'
             animate='visible'
             exit='exit'
             role='dialog'
             aria-modal='true'
-            aria-label='Mobile navigation'
+            aria-labelledby='mobile-menu-title'
             className='fixed inset-0 z-50 flex flex-col bg-linear-to-b from-card via-background to-background'
           >
             {/* Header */}
             <div className='flex items-center justify-between p-6 border-b border-border'>
-              <motion.div
+              <motion.h2
+                id='mobile-menu-title'
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.2 }}
-                className='text-xl font-bold tracking-tight'
+                className='text-xl font-bold tracking-tight text-foreground'
               >
-                <span className='text-foreground'>Menu</span>
-              </motion.div>
+                Menu
+              </motion.h2>
               <motion.button
+                ref={closeButtonRef}
                 onClick={onClose}
                 whileHover={{ scale: 1.1, rotate: 90 }}
                 whileTap={{ scale: 0.9 }}
                 className='p-2 rounded-full bg-secondary text-foreground hover:bg-muted transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background'
                 aria-label='Close navigation menu'
+                type='button'
               >
-                <X size={24} />
+                <X size={24} aria-hidden='true' />
               </motion.button>
             </div>
 
             {/* Navigation Items */}
             <nav
               className='flex-1 flex flex-col px-6 py-8 space-y-2 overflow-y-auto'
-              aria-label='Mobile navigation links'
+              aria-label='Main navigation'
             >
               {navItems?.map((item, i) => {
                 const isActive = activeSection === item.href;
@@ -150,10 +205,11 @@ export function MobileNavigation({
                     animate='visible'
                   >
                     <Link
+                      ref={i === 0 ? firstFocusableRef : null}
                       href={item.href ?? ''}
                       onClick={onClose}
                       className='block focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background rounded-2xl'
-                      tabIndex={0}
+                      aria-current={isActive ? 'page' : undefined}
                     >
                       <motion.div
                         whileHover={{ x: 10 }}
