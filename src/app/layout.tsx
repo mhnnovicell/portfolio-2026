@@ -5,6 +5,7 @@ import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import Script from 'next/script';
 import { BackToTop } from '@/components/ui/backToTop';
+import { ServiceWorkerRegistration } from '@/components/ServiceWorkerRegistration';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -184,10 +185,11 @@ export default function RootLayout({
         <Script
           id='Cookiebot'
           src='https://consent.cookiebot.com/uc.js'
-          strategy='beforeInteractive'
+          strategy='afterInteractive'
           data-cbid='b843d607-a3f8-40df-a756-65d3e5e1f9ee'
           data-blockingmode='auto'
         />
+        <ServiceWorkerRegistration />
         {children}
         <BackToTop />
         <Analytics />

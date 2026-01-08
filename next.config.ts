@@ -72,6 +72,11 @@ const nextConfig: NextConfig = {
             value:
               'camera=(), microphone=(), geolocation=(), interest-cohort=()',
           },
+          {
+            key: 'Link',
+            value:
+              '<https://consent.cookiebot.com>; rel=dns-prefetch, <https://consent.cookiebot.com>; rel=preconnect',
+          },
         ],
       },
       // Cache static assets aggressively
@@ -81,6 +86,19 @@ const nextConfig: NextConfig = {
           {
             key: 'Cache-Control',
             value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      {
+        source: '/sw.js',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=0, must-revalidate',
+          },
+          {
+            key: 'Service-Worker-Allowed',
+            value: '/',
           },
         ],
       },
