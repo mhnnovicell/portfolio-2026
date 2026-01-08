@@ -109,7 +109,7 @@ export function MobileNavigation({
             role='dialog'
             aria-modal='true'
             aria-label='Mobile navigation'
-            className='fixed inset-0 z-50 flex flex-col bg-gradient-to-b from-card via-background to-background'
+            className='fixed inset-0 z-50 flex flex-col bg-linear-to-b from-card via-background to-background'
           >
             {/* Header */}
             <div className='flex items-center justify-between p-6 border-b border-border'>
@@ -154,10 +154,10 @@ export function MobileNavigation({
                     <motion.div
                       whileHover={{ x: 10 }}
                       whileTap={{ scale: 0.98 }}
-                      className='group relative overflow-hidden rounded-2xl border border-border bg-gradient-to-br from-card to-secondary/30 p-6 transition-all duration-500'
+                      className='group relative overflow-hidden rounded-2xl border border-border bg-linear-to-br from-card to-secondary/30 p-6 transition-all duration-500'
                     >
                       {/* Hover glow effect */}
-                      <div className='absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500' />
+                      <div className='absolute inset-0 bg-linear-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500' />
 
                       <div className='relative z-10 flex items-center justify-between'>
                         <span className='text-2xl font-semibold text-foreground group-hover:text-primary transition-colors'>

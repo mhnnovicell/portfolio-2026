@@ -3,7 +3,6 @@
 import { Quote, Star } from 'lucide-react';
 import { Section } from '@/components/ui/section';
 import { AnimatedCard } from '@/components/ui/animatedCard';
-import { useState } from 'react';
 import { Testimonial } from '../../../sanity.types';
 import Image from 'next/image';
 
@@ -14,8 +13,6 @@ interface TestimonialsSectionProps {
 export function TestimonialsSection({
   testimonials: sanityTestimonials,
 }: TestimonialsSectionProps) {
-  const [activeIndex, setActiveIndex] = useState(0);
-
   const testimonials = sanityTestimonials || [
     {
       _id: '1',
@@ -79,7 +76,7 @@ export function TestimonialsSection({
               </div>
 
               <p
-                className={`text-muted-foreground leading-relaxed mb-6 flex-grow ${i === 0 ? 'text-lg' : 'text-sm'}`}
+                className={`text-muted-foreground leading-relaxed mb-6 grow ${i === 0 ? 'text-lg' : 'text-sm'}`}
               >
                 {testimonial.content}
               </p>

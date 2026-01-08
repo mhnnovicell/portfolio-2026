@@ -22,8 +22,8 @@ export function Section({
 }: SectionProps) {
   const backgrounds = {
     default: 'bg-background',
-    gradient: 'bg-gradient-to-b from-background via-card/30 to-background',
-    accent: 'bg-gradient-to-b from-background via-secondary/20 to-background',
+    gradient: 'bg-linear-to-b from-background via-card/30 to-background',
+    accent: 'bg-linear-to-b from-background via-secondary/20 to-background',
   };
 
   return (

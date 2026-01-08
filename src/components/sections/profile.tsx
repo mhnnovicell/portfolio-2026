@@ -1,14 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import {
-  ArrowDown,
-  MapPin,
-  Github,
-  Linkedin,
-  Twitter,
-  Mail,
-} from 'lucide-react';
+import { MapPin, Github, Linkedin, Twitter, Mail } from 'lucide-react';
 import Image from 'next/image';
 import { Profile } from '../../../sanity.types';
 
@@ -56,7 +49,7 @@ export function ProfileSection({ data }: ProfileSectionProps) {
   return (
     <section className='min-h-screen flex flex-col justify-center px-4 md:px-6 pt-24 pb-16 relative overflow-hidden'>
       {/* Background gradient */}
-      <div className='absolute inset-0 bg-gradient-to-b from-card/50 via-background to-background' />
+      <div className='absolute inset-0 bg-linear-to-b from-card/50 via-background to-background' />
 
       {/* Animated gradient orbs */}
       <motion.div
@@ -69,7 +62,7 @@ export function ProfileSection({ data }: ProfileSectionProps) {
           repeat: Number.POSITIVE_INFINITY,
           ease: 'easeInOut',
         }}
-        className='absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-muted/20 to-transparent rounded-full blur-3xl'
+        className='absolute top-1/4 left-1/4 w-96 h-96 bg-linear-to-r from-muted/20 to-transparent rounded-full blur-3xl'
       />
       <motion.div
         animate={{
@@ -81,7 +74,7 @@ export function ProfileSection({ data }: ProfileSectionProps) {
           repeat: Number.POSITIVE_INFINITY,
           ease: 'easeInOut',
         }}
-        className='absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-l from-muted/20 to-transparent rounded-full blur-3xl'
+        className='absolute bottom-1/4 right-1/4 w-96 h-96 bg-linear-to-l from-muted/20 to-transparent rounded-full blur-3xl'
       />
 
       <motion.div
@@ -93,7 +86,7 @@ export function ProfileSection({ data }: ProfileSectionProps) {
         {/* Profile Image Card - spans 1 col on md, 1 col on lg */}
         <motion.div
           variants={itemVariants}
-          className='md:row-span-2 bg-gradient-to-br from-card to-card/50 border border-border rounded-3xl p-6 flex flex-col items-center justify-center'
+          className='md:row-span-2 bg-linear-to-br from-card to-card/50 border border-border rounded-3xl p-6 flex flex-col items-center justify-center'
         >
           <div className='relative mb-4'>
             <motion.div
@@ -103,7 +96,7 @@ export function ProfileSection({ data }: ProfileSectionProps) {
                 repeat: Number.POSITIVE_INFINITY,
                 ease: 'linear',
               }}
-              className='absolute -inset-1.5 rounded-full bg-gradient-to-r from-foreground via-muted-foreground to-foreground opacity-50'
+              className='absolute -inset-1.5 rounded-full bg-linear-to-r from-foreground via-muted-foreground to-foreground opacity-50'
             />
             <div className='relative w-36 h-36 md:w-44 md:h-44 rounded-full overflow-hidden border-4 border-background'>
               <Image
@@ -137,7 +130,7 @@ export function ProfileSection({ data }: ProfileSectionProps) {
         {/* Main Intro Card - spans 2 cols on md, 3 cols on lg */}
         <motion.div
           variants={itemVariants}
-          className='md:col-span-2 lg:col-span-3 bg-gradient-to-br from-card to-card/50 border border-border rounded-3xl p-6 md:p-8 flex flex-col justify-center'
+          className='md:col-span-2 lg:col-span-3 bg-linear-to-br from-card to-card/50 border border-border rounded-3xl p-6 md:p-8 flex flex-col justify-center'
         >
           <p className='text-muted-foreground text-xs md:text-sm tracking-widest uppercase mb-2'>
             {profile.title}
@@ -156,7 +149,7 @@ export function ProfileSection({ data }: ProfileSectionProps) {
         {/* Stats Cards */}
         <motion.div
           variants={itemVariants}
-          className='bg-gradient-to-br from-card to-card/50 border border-border rounded-3xl p-5 flex flex-col items-center justify-center text-center'
+          className='bg-linear-to-br from-card to-card/50 border border-border rounded-3xl p-5 flex flex-col items-center justify-center text-center'
         >
           <span className='text-3xl md:text-4xl font-bold text-foreground'>
             {profile?.stats?.projects}
@@ -168,7 +161,7 @@ export function ProfileSection({ data }: ProfileSectionProps) {
 
         <motion.div
           variants={itemVariants}
-          className='bg-gradient-to-br from-card to-card/50 border border-border rounded-3xl p-5 flex flex-col items-center justify-center text-center'
+          className='bg-linear-to-br from-card to-card/50 border border-border rounded-3xl p-5 flex flex-col items-center justify-center text-center'
         >
           <span className='text-3xl md:text-4xl font-bold text-foreground'>
             {profile?.stats?.yearsExperience}
@@ -180,7 +173,7 @@ export function ProfileSection({ data }: ProfileSectionProps) {
 
         <motion.div
           variants={itemVariants}
-          className='bg-gradient-to-br from-card to-card/50 border border-border rounded-3xl p-5 flex flex-col items-center justify-center text-center'
+          className='bg-linear-to-br from-card to-card/50 border border-border rounded-3xl p-5 flex flex-col items-center justify-center text-center'
         >
           <span className='text-3xl md:text-4xl font-bold text-foreground'>
             {profile?.stats?.clients}
@@ -191,7 +184,7 @@ export function ProfileSection({ data }: ProfileSectionProps) {
         {/* CTA Card */}
         <motion.div
           variants={itemVariants}
-          className='bg-gradient-to-br from-primary/10 to-card border border-border rounded-3xl p-5 flex flex-col items-center justify-center gap-3'
+          className='bg-linear-to-br from-primary/10 to-card border border-border rounded-3xl p-5 flex flex-col items-center justify-center gap-3'
         >
           {profile.availableForHire && (
             <span className='text-green-500 text-xs font-medium uppercase tracking-wider'>
@@ -213,7 +206,7 @@ export function ProfileSection({ data }: ProfileSectionProps) {
         {/* Work Button Card */}
         <motion.div
           variants={itemVariants}
-          className='md:col-span-2 lg:col-span-2 bg-gradient-to-br from-card to-card/50 border border-border rounded-3xl p-5 flex items-center justify-between gap-4'
+          className='md:col-span-2 lg:col-span-2 bg-linear-to-br from-card to-card/50 border border-border rounded-3xl p-5 flex items-center justify-between gap-4'
         >
           <p className='text-sm text-muted-foreground'>
             Check out my latest projects and case studies
@@ -231,7 +224,7 @@ export function ProfileSection({ data }: ProfileSectionProps) {
         {/* Social Links Card */}
         <motion.div
           variants={itemVariants}
-          className='bg-gradient-to-br from-card to-card/50 border border-border rounded-3xl p-5 flex items-center justify-center gap-4'
+          className='bg-linear-to-br from-card to-card/50 border border-border rounded-3xl p-5 flex items-center justify-center gap-4'
         >
           {profile?.social?.github && (
             <motion.a

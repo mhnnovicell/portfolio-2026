@@ -93,7 +93,7 @@ export function ExperienceSection({
       <div className='max-w-7xl mx-auto relative z-10'>
         <div className='relative'>
           {/* Timeline line */}
-          <div className='absolute left-0 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-border to-transparent transform md:-translate-x-1/2' />
+          <div className='absolute left-0 md:left-1/2 top-0 bottom-0 w-px bg-linear-to-b from-transparent via-border to-transparent transform md:-translate-x-1/2' />
 
           {experiences.map((exp, i) => (
             <motion.div
@@ -118,10 +118,10 @@ export function ExperienceSection({
                 <motion.div
                   whileHover={{ scale: 1.02, y: -5 }}
                   transition={{ type: 'spring', stiffness: 300 }}
-                  className='group relative overflow-hidden rounded-2xl border border-border bg-gradient-to-br from-card to-secondary/30 p-6 transition-all duration-500'
+                  className='group relative overflow-hidden rounded-2xl border border-border bg-linear-to-br from-card to-secondary/30 p-6 transition-all duration-500'
                 >
                   {/* Hover glow */}
-                  <div className='absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500' />
+                  <div className='absolute inset-0 bg-linear-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500' />
 
                   <div className='relative z-10'>
                     {/* Header */}
