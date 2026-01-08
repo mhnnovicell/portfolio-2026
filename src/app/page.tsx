@@ -17,6 +17,7 @@ import { ProjectsSection } from '@/components/sections/projects';
 import { SkillsSection } from '@/components/sections/skills';
 import { TestimonialsSection } from '@/components/sections/testimonials';
 import { WhatIDo } from '@/components/sections/whatIDo';
+import { BackToTop } from '@/components/ui/backToTop';
 
 export default async function Home() {
   const [
@@ -51,6 +52,7 @@ export default async function Home() {
       <ExperienceSection experiences={experiences} />
       <ProjectsSection projects={projects} />
       <TestimonialsSection testimonials={testimonials} />
+      <BackToTop />
 
       {/* 
     
