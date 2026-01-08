@@ -124,16 +124,12 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground selection:bg-white selection:text-black;
   }
 
   /* Smooth scrolling */
   html {
     scroll-behavior: smooth;
-  }
-
-  /* Improved smooth scrolling with offset for fixed header */
-  html {
     scroll-padding-top: 80px; /* Adjust based on your header height */
   }
 }
