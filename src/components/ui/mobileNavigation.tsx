@@ -163,7 +163,7 @@ export function MobileNavigation({
             role='dialog'
             aria-modal='true'
             aria-labelledby='mobile-menu-title'
-            className='fixed inset-0 z-50 flex flex-col bg-linear-to-b from-card via-background to-background'
+            className='fixed inset-0 z-[2147483633] flex flex-col bg-linear-to-b from-card via-background to-background'
           >
             {/* Header */}
             <div className='flex items-center justify-between p-6 border-b border-border'>
