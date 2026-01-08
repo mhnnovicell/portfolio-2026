@@ -16,9 +16,13 @@ export function IconBox({
 }: IconBoxProps) {
   return (
     <motion.div
-      whileHover={{ rotate: 10, scale: 1.1 }}
-      transition={{ type: 'spring', stiffness: 300 }}
+      whileHover={{
+        rotate: 10,
+        scale: 1.1,
+        transition: { duration: 0.2, ease: 'easeOut' },
+      }}
       className={`w-12 h-12 rounded-xl bg-secondary flex items-center justify-center ${className}`}
+      style={{ willChange: 'transform' }}
     >
       <Icon className='text-foreground' size={size} />
     </motion.div>

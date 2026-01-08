@@ -80,14 +80,19 @@ export function WhatIDo({ items }: WhatIDoProps) {
         {whatIDoItems.map((item, i) => {
           const IconComponent = (Icons[item?.icon as keyof typeof Icons] ||
             Icons.Code2) as LucideIcon;
-          const className = `md:col-span-${item?.gridSpan?.colSpan} md:row-span-${item?.gridSpan?.rowSpan}`;
+
+          // Build className string conditionally
+          const colSpan = item?.gridSpan?.colSpan || 1;
+          const rowSpan = item?.gridSpan?.rowSpan || 1;
+          const spanClass =
+            `${colSpan > 1 ? `md:col-span-${colSpan}` : ''} ${rowSpan > 1 ? `md:row-span-${rowSpan}` : ''}`.trim();
 
           return (
             <AnimatedCard
               key={item.title}
-              delay={i * 0.1}
+              delay={i * 0.05}
               gradient={item.gradient}
-              className={className}
+              className={spanClass}
             >
               <IconBox icon={IconComponent} className='mb-4' />
               <h3 className='text-xl font-semibold mb-2 text-foreground'>
