@@ -177,22 +177,6 @@ export function MobileNavigation({
                 </motion.div>
               ))}
             </nav>
-
-            {/* Footer */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-              className='p-6 border-t border-border'
-            >
-              <p className='text-sm text-muted-foreground text-center'>
-                Press{' '}
-                <kbd className='px-2 py-1 bg-secondary rounded text-xs'>
-                  ESC
-                </kbd>{' '}
-                or tap backdrop to close
-              </p>
-            </motion.div>
           </motion.div>
         </>
       )}
