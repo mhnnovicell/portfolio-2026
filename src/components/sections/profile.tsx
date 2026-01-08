@@ -66,15 +66,6 @@ export function ProfileSection({ data }: ProfileSectionProps) {
           className='md:row-span-2 bg-linear-to-br from-card to-card/50 border border-border rounded-3xl p-6 flex flex-col items-center justify-center'
         >
           <div className='relative mb-4'>
-            <motion.div
-              animate={{ rotate: 360 }}
-              transition={{
-                duration: 20,
-                repeat: Number.POSITIVE_INFINITY,
-                ease: 'linear',
-              }}
-              className='absolute -inset-1.5 rounded-full bg-linear-to-r from-foreground via-muted-foreground to-foreground opacity-50'
-            />
             <div className='relative w-36 h-36 md:w-44 md:h-44 rounded-full overflow-hidden border-4 border-background'>
               <Image
                 src={
