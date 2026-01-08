@@ -62,37 +62,17 @@ export function TestimonialsSection({
       title='Udtalelser'
       description='Feedback fra kolleger og klienter, som jeg har haft fornøjelsen af at arbejde med.'
     >
-      <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+      <div className='grid grid-cols-1 md:grid-cols-2 gap-8'>
         {testimonials.map((testimonial, i) => (
           <AnimatedCard
             key={testimonial._id}
             delay={i * 0.1}
             gradient='from-card to-secondary/20'
-            className={i === 0 ? 'md:row-span-2' : ''}
           >
-            <div className='h-full flex flex-col'>
-              <div className='mb-4'>
-                <Quote className='text-primary/30' size={i === 0 ? 48 : 32} />
-              </div>
-
-              <p
-                className={`text-muted-foreground leading-relaxed mb-6 grow ${i === 0 ? 'text-lg' : 'text-sm'}`}
-              >
-                {testimonial.content}
-              </p>
-
-              <div className='flex gap-1 mb-4'>
-                {Array.from({ length: testimonial.rating || 0 }).map((_, j) => (
-                  <Star
-                    key={j}
-                    size={16}
-                    className='fill-primary text-primary'
-                  />
-                ))}
-              </div>
-
-              <div className='flex items-center gap-4'>
-                <div className='relative'>
+            <article className='h-full flex flex-col'>
+              {/* Header with Image and Info */}
+              <div className='flex items-start gap-6 mb-6 md:flex-row flex-col'>
+                <div className='relative shrink-0'>
                   <Image
                     src={
                       typeof testimonial.image === 'string'
@@ -100,22 +80,46 @@ export function TestimonialsSection({
                         : testimonial.image?.url || '/placeholder.svg'
                     }
                     alt={testimonial.name || 'Testimonial'}
-                    width={48}
-                    height={48}
-                    className='w-12 h-12 rounded-full object-cover border-2 border-border'
+                    width={96}
+                    height={96}
+                    className='w-24 h-24 rounded-2xl object-cover border-2 border-border transition-transform duration-500 group-hover:scale-105'
                   />
-                  <div className='absolute inset-0 rounded-full ring-2 ring-primary/20 ring-offset-2 ring-offset-background opacity-0 group-hover:opacity-100 transition-opacity' />
+                  <div className='absolute inset-0 rounded-2xl ring-2 ring-primary/20 ring-offset-2 ring-offset-background opacity-0 group-hover:opacity-100 transition-opacity duration-300' />
                 </div>
-                <div>
-                  <h3 className='font-semibold text-foreground'>
+
+                <div className='flex-1 min-w-0'>
+                  <h3 className='font-semibold text-lg text-foreground mb-1 group-hover:text-primary transition-colors'>
                     {testimonial.name}
                   </h3>
-                  <p className='text-sm text-muted-foreground'>
-                    {testimonial.role} at {testimonial.company}
+                  <p className='text-sm text-muted-foreground mb-2'>
+                    {testimonial.role}
+                  </p>
+                  <p className='text-xs text-muted-foreground/80 font-medium'>
+                    {testimonial.company}
                   </p>
                 </div>
               </div>
-            </div>
+
+              {/* Quote Icon */}
+              <div className='mb-4'>
+                <Quote className='text-primary/30' size={40} />
+              </div>
+
+              {/* Content */}
+              <p className='text-muted-foreground leading-relaxed mb-4 grow text-base'>
+                {testimonial.content}
+              </p>
+              {/* Rating */}
+              <div className='flex gap-1 mt-4'>
+                {Array.from({ length: testimonial.rating || 0 }).map((_, j) => (
+                  <Star
+                    key={j}
+                    size={18}
+                    className='fill-primary text-primary'
+                  />
+                ))}
+              </div>
+            </article>
           </AnimatedCard>
         ))}
       </div>

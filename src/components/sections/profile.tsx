@@ -78,6 +78,7 @@ export function ProfileSection({ data }: ProfileSectionProps) {
                 className='object-cover'
                 priority
                 fetchPriority='high'
+                sizes='100vw'
               />
             </div>
             {profile.availableForHire && (
