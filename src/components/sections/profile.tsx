@@ -158,7 +158,7 @@ export function ProfileSection({ data }: ProfileSectionProps) {
             {profile?.stats?.projects}
           </span>
           <span className='text-muted-foreground text-sm'>
-            Projects Completed
+            Projekter leveret
           </span>
         </motion.div>
 
@@ -169,9 +169,7 @@ export function ProfileSection({ data }: ProfileSectionProps) {
           <span className='text-3xl md:text-4xl font-bold text-foreground'>
             {profile?.stats?.yearsExperience}
           </span>
-          <span className='text-muted-foreground text-sm'>
-            Years Experience
-          </span>
+          <span className='text-muted-foreground text-sm'>Årserfaring</span>
         </motion.div>
 
         <motion.div
@@ -181,7 +179,7 @@ export function ProfileSection({ data }: ProfileSectionProps) {
           <span className='text-3xl md:text-4xl font-bold text-foreground'>
             {profile?.stats?.clients}
           </span>
-          <span className='text-muted-foreground text-sm'>Happy Clients</span>
+          <span className='text-muted-foreground text-sm'>Glade kunder</span>
         </motion.div>
 
         {/* CTA Card */}
@@ -201,7 +199,7 @@ export function ProfileSection({ data }: ProfileSectionProps) {
               whileTap={{ scale: 0.97 }}
               className='flex-1 px-4 py-2.5 bg-primary text-primary-foreground rounded-full font-medium text-sm text-center transition-all duration-300 hover:shadow-lg hover:shadow-primary/20'
             >
-              Get in touch
+              Kontakt mig
             </motion.a>
           </div>
         </motion.div>
@@ -212,7 +210,7 @@ export function ProfileSection({ data }: ProfileSectionProps) {
           className='md:col-span-2 lg:col-span-2 bg-linear-to-br from-card to-card/50 border border-border rounded-3xl p-5 flex items-center justify-between gap-4'
         >
           <p className='text-sm text-muted-foreground'>
-            Check out my latest projects and case studies
+            Se mine seneste projekter
           </p>
           <motion.a
             href='#projects'
@@ -220,7 +218,7 @@ export function ProfileSection({ data }: ProfileSectionProps) {
             whileTap={{ scale: 0.97 }}
             className='px-6 py-2.5 border border-border text-foreground rounded-full font-medium text-sm transition-all duration-300 hover:bg-card hover:border-muted-foreground whitespace-nowrap'
           >
-            View my work
+            Se mit arbejde
           </motion.a>
         </motion.div>
 
