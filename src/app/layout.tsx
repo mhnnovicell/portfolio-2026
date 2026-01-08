@@ -53,15 +53,15 @@ export default function RootLayout({
       // 1. The Person Schema (Who you are)
       {
         '@type': 'Person',
-        '@id': 'https://portfolio-2026-mhn.vercel.app/#person',
+        '@id': 'https://mikkelraev.dk/#person',
         name: 'Mikkel Hornbech Nielsen',
         telephone: '+45 41 43 05 42',
         jobTitle: 'Frontend Developer',
-        url: 'https://portfolio-2026-mhn.vercel.app/',
+        url: 'https://mikkelraev.dk/',
         image:
           'https://cdn.sanity.io/images/dedvn4af/production/f94359f9223a152b165b13ec24966f91a157644c-600x600.webp',
         description:
-          'Passionate frontend developer with 5+ years of experience building accessible, pixel-perfect web applications.',
+          'mikkelraev.dk er en personlig portefølje drevet af Mikkel Hornbech Nielsen',
         email: 'mailto:kontakt@mikkelraev.dk',
         address: {
           '@type': 'PostalAddress',
@@ -86,14 +86,14 @@ export default function RootLayout({
       // 2. The ProfessionalService Schema (Your Business Entity)
       {
         '@type': 'ProfessionalService',
-        '@id': 'https://portfolio-2026-mhn.vercel.app/#business',
+        '@id': 'https://mikkelraev.dk/#business',
         name: 'Mikkel Hornbech Nielsen - Frontend Development', // Slightly distinct business name
-        url: 'https://portfolio-2026-mhn.vercel.app/',
+        url: 'https://mikkelraev.dk/',
         logo: 'https://cdn.sanity.io/images/dedvn4af/production/f94359f9223a152b165b13ec24966f91a157644c-600x600.webp',
         image:
           'https://cdn.sanity.io/images/dedvn4af/production/f94359f9223a152b165b13ec24966f91a157644c-600x600.webp',
         description:
-          'Specialized in frontend development, UI/UX design, and performance optimization for web applications.',
+          'mikkelraev.dk er en personlig portefølje drevet af Mikkel Hornbech Nielsen',
         email: 'mailto:kontakt@mikkelraev.dk',
         address: {
           '@type': 'PostalAddress',
@@ -115,7 +115,7 @@ export default function RootLayout({
         ],
         // Linking the Person as the founder/provider of this service
         founder: {
-          '@id': 'https://portfolio-2026-mhn.vercel.app/#person',
+          '@id': 'https://mikkelraev.dk/#person',
         },
         // Listing specific services based on your "Filosofi" and "Evner"
         hasOfferCatalog: {
