@@ -33,10 +33,10 @@ const DEFAULT_NAV_ITEMS = [
   { label: 'Contact', href: '#contact', _key: 'contact' },
 ];
 
-const DEFAULT_SOCIAL_LINKS = [
-  { platform: 'github', url: 'https://github.com' },
-  { platform: 'linkedin', url: 'https://linkedin.com' },
-  { platform: 'twitter', url: 'https://twitter.com' },
+const DEFAULT_SOCIAL_LINKS: NonNullable<Navigation['socialLinks']> = [
+  { _key: 'github', platform: 'github', url: 'https://github.com' },
+  { _key: 'linkedin', platform: 'linkedin', url: 'https://linkedin.com' },
+  { _key: 'twitter', platform: 'twitter', url: 'https://twitter.com' },
 ];
 
 export function Navigation({ data }: NavigationProps) {
@@ -204,6 +204,7 @@ export function Navigation({ data }: NavigationProps) {
         isOpen={isMobileMenuOpen}
         onClose={() => setIsMobileMenuOpen(false)}
         navItems={navItems}
+        socialLinks={socialLinks}
         activeSection={activeSection}
       />
     </>

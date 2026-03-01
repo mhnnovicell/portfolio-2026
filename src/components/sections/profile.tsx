@@ -160,7 +160,7 @@ export function ProfileSection({ data }: ProfileSectionProps) {
         {/* CTA Card */}
         <motion.div
           variants={itemVariants}
-          className='bg-linear-to-br from-primary/10 to-card border border-border rounded-3xl p-5 flex flex-col items-center justify-center gap-3'
+          className='bg-linear-to-br hidden from-primary/10 to-card border border-border rounded-3xl p-5 md:flex flex-col items-center justify-center gap-3'
         >
           {profile.availableForHire ? (
             <span className='text-green-500 text-xs font-medium uppercase tracking-wider'>

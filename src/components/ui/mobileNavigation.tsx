@@ -2,14 +2,30 @@
 
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
-import { X } from 'lucide-react';
+import { X, Github, Linkedin, Twitter, Mail, HelpCircle } from 'lucide-react';
 import type { Navigation } from '../../../sanity.types';
 import { useEffect, useRef } from 'react';
+
+const getSocialIcon = (platform: string) => {
+  switch (platform.toLowerCase()) {
+    case 'github':
+      return Github;
+    case 'linkedin':
+      return Linkedin;
+    case 'twitter':
+      return Twitter;
+    case 'email':
+      return Mail;
+    default:
+      return HelpCircle;
+  }
+};
 
 interface MobileNavigationProps {
   isOpen: boolean;
   onClose: () => void;
   navItems: Navigation['navItems'];
+  socialLinks?: Navigation['socialLinks'];
   activeSection: string;
 }
 
@@ -55,6 +71,7 @@ export function MobileNavigation({
   isOpen,
   onClose,
   navItems,
+  socialLinks,
   activeSection,
 }: MobileNavigationProps) {
   const menuRef = useRef<HTMLDivElement>(null);
@@ -254,6 +271,33 @@ export function MobileNavigation({
                   );
                 })}
               </ul>
+
+              {/* Social Links */}
+              {socialLinks && socialLinks.length > 0 && (
+                <div className='mt-auto pt-8 flex items-center justify-start gap-6'>
+                  {socialLinks.map((link, i) => {
+                    if (!link.platform || !link.url) return null;
+                    const Icon = getSocialIcon(link.platform);
+                    return (
+                      <motion.a
+                        key={link.platform}
+                        href={link.url}
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.3 + i * 0.1, duration: 0.4 }}
+                        whileHover={{ scale: 1.1, y: -2 }}
+                        whileTap={{ scale: 0.95 }}
+                        className='p-3 rounded-full bg-secondary/50 text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2'
+                        aria-label={`Besøg min ${link.platform} profil`}
+                      >
+                        <Icon size={24} />
+                      </motion.a>
+                    );
+                  })}
+                </div>
+              )}
             </nav>
           </motion.div>
         </>
