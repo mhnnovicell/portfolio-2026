@@ -4,6 +4,7 @@ import './globals.css';
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { ServiceWorkerRegistration } from '@/components/ServiceWorkerRegistration';
+import Script from 'next/script';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -82,6 +83,23 @@ export default function RootLayout({
         description:
           'mikkelraev.dk er en personlig portefølje drevet af Mikkel Hornbech Nielsen',
         email: 'mailto:kontakt@mikkelraev.dk',
+        knowsAbout: [
+          'Frontend Development',
+          'React',
+          'Next.js',
+          'TypeScript',
+          'Tailwind CSS',
+          'UI/UX Design',
+          'Accessibility',
+        ],
+        hasOccupation: {
+          '@type': 'Occupation',
+          name: 'Frontend Developer',
+          occupationLocation: {
+            '@type': 'City',
+            name: 'Aarhus',
+          },
+        },
         address: {
           '@type': 'PostalAddress',
           addressLocality: 'Aarhus',
@@ -183,13 +201,11 @@ export default function RootLayout({
           type='application/ld+json'
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        {/* <Script
-          id='Cookiebot'
-          src='https://consent.cookiebot.com/uc.js'
+        <Script
+          type='text/javascript'
+          src='//cdn.cookie-script.com/s/87392cce3e7ad19dd735b3fe168fdcf4.js'
           strategy='afterInteractive'
-          data-cbid='b843d607-a3f8-40df-a756-65d3e5e1f9ee'
-          data-blockingmode='auto'
-        /> */}
+        />
         <ServiceWorkerRegistration />
         {children}
         <Analytics />
