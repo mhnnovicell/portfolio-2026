@@ -1,13 +1,34 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import {
+  LazyMotion,
+  domAnimation,
+  m,
+  type Variants,
+  useReducedMotion,
+} from 'framer-motion';
 import { Briefcase, Calendar, MapPin } from 'lucide-react';
+import { memo } from 'react';
 import { Experience } from '../../../sanity.types';
+import { AnimatedCard } from '@/components/ui/animatedCard';
 import { Section } from '@/components/ui/section';
 
 interface ExperienceSectionProps {
   experiences?: Experience[];
 }
+
+type ExperienceItemData = Pick<
+  Experience,
+  | '_id'
+  | 'company'
+  | 'role'
+  | 'startDate'
+  | 'endDate'
+  | 'location'
+  | 'description'
+  | 'techStack'
+  | 'achievements'
+>;
 
 function formatPeriod(startDate: string | undefined, endDate?: string) {
   if (!startDate) return 'Present';
@@ -15,6 +36,23 @@ function formatPeriod(startDate: string | undefined, endDate?: string) {
   const end = endDate ? new Date(endDate).getFullYear() : 'Present';
   return `${start} - ${end}`;
 }
+
+const TIMELINE_ITEM_VARIANTS: Variants = {
+  hiddenLeft: { opacity: 0, x: -50 },
+  hiddenRight: { opacity: 0, x: 50 },
+  visible: (index: number) => ({
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.6, delay: index * 0.12 },
+  }),
+  visibleReduced: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0 },
+  },
+};
+
+const ITEM_VIEWPORT = { once: true };
 
 const DEFAULT_EXPERIENCES = [
   {
@@ -79,12 +117,114 @@ const DEFAULT_EXPERIENCES = [
       "Won 'Rising Star' award in first year",
     ],
   },
-];
+] satisfies ExperienceItemData[];
+
+interface ExperienceItemProps {
+  exp: ExperienceItemData;
+  index: number;
+  reduceMotion: boolean;
+}
+
+const ExperienceItem = memo(function ExperienceItem({
+  exp,
+  index,
+  reduceMotion,
+}: ExperienceItemProps) {
+  const isEven = index % 2 === 0;
+  const experienceId = exp._id ?? `fallback-${index}`;
+  const roleId = `experience-role-${experienceId}`;
+  const descId = `experience-desc-${experienceId}`;
+
+  return (
+    <m.li
+      custom={index}
+      initial={
+        reduceMotion ? 'visibleReduced' : isEven ? 'hiddenLeft' : 'hiddenRight'
+      }
+      whileInView={reduceMotion ? 'visibleReduced' : 'visible'}
+      variants={TIMELINE_ITEM_VARIANTS}
+      viewport={ITEM_VIEWPORT}
+      className={`relative flex flex-col gap-8 mb-12 ${
+        isEven ? 'md:flex-row' : 'md:flex-row-reverse'
+      }`}
+    >
+      <div
+        aria-hidden='true'
+        className='absolute left-0 md:left-1/2 w-4 h-4 bg-primary rounded-full transform md:-translate-x-1/2 -translate-x-1/2 mt-8 z-10'
+      >
+        <div className='absolute inset-0 bg-primary rounded-full animate-ping opacity-20' />
+      </div>
+
+      <div
+        className={`flex-1 ${isEven ? 'md:pr-12' : 'md:pl-12'} pl-8 md:pl-0`}
+      >
+        <AnimatedCard
+          hover
+          tabIndex={0}
+          aria-labelledby={roleId}
+          aria-describedby={descId}
+          className='focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2'
+        >
+          <div>
+            <div className='flex flex-wrap items-start justify-between gap-4 mb-4'>
+              <div>
+                <h3 id={roleId} className='text-xl font-bold text-foreground'>
+                  {exp.role}
+                </h3>
+                <div className='flex items-center gap-2 text-primary mt-1'>
+                  <Briefcase size={16} />
+                  <span className='font-medium'>{exp.company}</span>
+                </div>
+              </div>
+              <div className='flex flex-col items-end gap-1 text-sm text-muted-foreground'>
+                <div className='flex items-center gap-1'>
+                  <Calendar size={14} />
+                  <span>{formatPeriod(exp.startDate, exp.endDate)}</span>
+                </div>
+                <div className='flex items-center gap-1'>
+                  <MapPin size={14} />
+                  <span>{exp.location}</span>
+                </div>
+              </div>
+            </div>
+
+            <p
+              id={descId}
+              className='text-muted-foreground text-sm mb-4 leading-relaxed'
+            >
+              {exp.description}
+            </p>
+
+            <ul
+              className='flex flex-wrap gap-2'
+              aria-label={`Teknologier brugt som ${exp.role}`}
+            >
+              {exp.techStack?.map((tech) => (
+                <li
+                  key={`${experienceId}-${tech}`}
+                  className='px-3 py-1 text-xs font-medium bg-secondary rounded-full text-foreground border border-border'
+                >
+                  {tech}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </AnimatedCard>
+      </div>
+
+      <div aria-hidden='true' className='hidden md:block flex-1' />
+    </m.li>
+  );
+});
 
 export function ExperienceSection({
   experiences: sanityExperiences,
 }: ExperienceSectionProps) {
-  const experiences = sanityExperiences || DEFAULT_EXPERIENCES;
+  const experiences: ExperienceItemData[] =
+    sanityExperiences && sanityExperiences.length > 0
+      ? sanityExperiences
+      : DEFAULT_EXPERIENCES;
+  const reduceMotion = useReducedMotion();
 
   return (
     <Section
@@ -95,112 +235,18 @@ export function ExperienceSection({
       aria-label='Arbejdserfaring'
     >
       <div className='max-w-7xl mx-auto relative z-10'>
-        <ul
-          className='relative'
-          role='list'
-          aria-label='Liste over arbejdserfaring'
-        >
-          {experiences.map((exp, i) => (
-            <motion.li
-              key={exp._id}
-              role='listitem'
-              initial={{ opacity: 0, x: i % 2 === 0 ? -50 : 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: i * 0.2 }}
-              className={`relative flex flex-col md:flex-row gap-8 mb-12 ${
-                i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
-              }`}
-            >
-              {/* Timeline dot */}
-              <div
-                aria-hidden='true'
-                className='absolute left-0 md:left-1/2 w-4 h-4 bg-primary rounded-full transform md:-translate-x-1/2 -translate-x-1/2 mt-8 z-10'
-              >
-                <div className='absolute inset-0 bg-primary rounded-full animate-ping opacity-20' />
-              </div>
-
-              {/* Content card */}
-              <div
-                className={`flex-1 ${i % 2 === 0 ? 'md:pr-12' : 'md:pl-12'} pl-8 md:pl-0`}
-              >
-                <motion.div
-                  whileHover={{ scale: 1.02, y: -5 }}
-                  transition={{ type: 'spring', stiffness: 300 }}
-                  tabIndex={0}
-                  aria-labelledby={`experience-role-${exp._id}`}
-                  aria-describedby={`experience-desc-${exp._id}`}
-                  className='group relative overflow-hidden rounded-2xl border border-border bg-linear-to-br from-card to-secondary/30 p-6 transition-all duration-500 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2'
-                >
-                  {/* Hover glow */}
-                  <div
-                    className='absolute inset-0 bg-linear-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500'
-                    aria-hidden='true'
-                  />
-
-                  <div className='relative z-10'>
-                    {/* Header */}
-                    <div className='flex flex-wrap items-start justify-between gap-4 mb-4'>
-                      <div>
-                        <h3
-                          id={`experience-role-${exp._id}`}
-                          className='text-xl font-bold text-foreground'
-                        >
-                          {exp.role}
-                        </h3>
-                        <div className='flex items-center gap-2 text-primary mt-1'>
-                          <Briefcase size={16} />
-                          <span className='font-medium'>{exp.company}</span>
-                        </div>
-                      </div>
-                      <div className='flex flex-col items-end gap-1 text-sm text-muted-foreground'>
-                        <div className='flex items-center gap-1'>
-                          <Calendar size={14} />
-                          <span>
-                            {formatPeriod(exp.startDate, exp.endDate)}
-                          </span>
-                        </div>
-                        <div className='flex items-center gap-1'>
-                          <MapPin size={14} />
-                          <span>{exp.location}</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Description */}
-                    <p
-                      id={`experience-desc-${exp._id}`}
-                      className='text-muted-foreground text-sm mb-4 leading-relaxed'
-                    >
-                      {exp.description}
-                    </p>
-
-                    {/* Tech stack */}
-                    <ul
-                      className='flex flex-wrap gap-2'
-                      role='list'
-                      aria-label={`Teknologier brugt som ${exp.role}`}
-                    >
-                      {exp.techStack?.map((tech) => (
-                        <li
-                          key={tech}
-                          role='listitem'
-                          tabIndex={0}
-                          className='px-3 py-1 text-xs font-medium bg-secondary rounded-full text-foreground border border-border focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2'
-                        >
-                          {tech}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </motion.div>
-              </div>
-
-              {/* Spacer for alternating layout */}
-              <div aria-hidden='true' className='hidden md:block flex-1' />
-            </motion.li>
-          ))}
-        </ul>
+        <LazyMotion features={domAnimation}>
+          <ul className='relative' aria-label='Liste over arbejdserfaring'>
+            {experiences.map((exp, index) => (
+              <ExperienceItem
+                key={exp._id ?? `experience-${index}`}
+                exp={exp}
+                index={index}
+                reduceMotion={Boolean(reduceMotion)}
+              />
+            ))}
+          </ul>
+        </LazyMotion>
       </div>
     </Section>
   );

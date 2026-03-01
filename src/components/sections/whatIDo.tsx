@@ -1,13 +1,58 @@
 'use client';
 
-import * as Icons from 'lucide-react';
+import {
+  Code2,
+  Coffee,
+  Globe,
+  Heart,
+  Palette,
+  Rocket,
+  Sparkles,
+  Zap,
+  type LucideIcon,
+} from 'lucide-react';
 import { Section } from '@/components/ui/section';
 import { AnimatedCard } from '@/components/ui/animatedCard';
 import { IconBox } from '@/components/ui/iconBox';
-import type { LucideIcon } from 'lucide-react';
 import type { Whatido } from '../../../sanity.types';
 
-const defaultwhatIDoItems = [
+type WhatIDoItem = {
+  _id?: string;
+  title?: string;
+  description?: string;
+  icon?: string;
+  gridSpan?: {
+    colSpan?: number;
+    rowSpan?: number;
+  };
+  gradient?: Whatido['gradient'];
+  order?: number;
+};
+
+const ICON_MAP: Record<string, LucideIcon> = {
+  Code2,
+  Palette,
+  Zap,
+  Globe,
+  Sparkles,
+  Coffee,
+  Rocket,
+  Heart,
+};
+
+const COL_SPAN_CLASS: Record<1 | 2 | 3, string> = {
+  1: '',
+  2: 'md:col-span-2',
+  3: 'md:col-span-3',
+};
+
+const ROW_SPAN_CLASS: Record<1 | 2 | 3, string> = {
+  1: '',
+  2: 'md:row-span-2',
+  3: 'md:row-span-3',
+};
+
+const defaultWhatIDoItems: WhatIDoItem[] = [
   {
     title: 'Clean Code',
     description:
@@ -63,12 +108,39 @@ const defaultwhatIDoItems = [
   },
 ];
 
+function getIconComponent(iconName?: string): LucideIcon {
+  if (!iconName) {
+    return Code2;
+  }
+
+  return ICON_MAP[iconName] ?? Code2;
+}
+
+function clampSpan(value?: number): 1 | 2 | 3 {
+  if (value === 2) {
+    return 2;
+  }
+
+  if (value === 3) {
+    return 3;
+  }
+
+  return 1;
+}
+
+function getSpanClassName(gridSpan?: WhatIDoItem['gridSpan']): string {
+  const colSpan = clampSpan(gridSpan?.colSpan);
+  const rowSpan = clampSpan(gridSpan?.rowSpan);
+
+  return `${COL_SPAN_CLASS[colSpan]} ${ROW_SPAN_CLASS[rowSpan]}`.trim();
+}
+
 interface WhatIDoProps {
   items?: Whatido[] | null;
 }
 
 export function WhatIDo({ items }: WhatIDoProps) {
-  const whatIDoItems = items || defaultwhatIDoItems;
+  const whatIDoItems = items?.length ? items : defaultWhatIDoItems;
 
   return (
     <Section
@@ -83,17 +155,14 @@ export function WhatIDo({ items }: WhatIDoProps) {
         aria-label='Liste over mine filosofier og kompetencer'
       >
         {whatIDoItems.map((item, i) => {
-          const IconComponent = (Icons[item?.icon as keyof typeof Icons] ||
-            Icons.Code2) as LucideIcon;
-
-          // Build className string conditionally
-          const colSpan = item?.gridSpan?.colSpan || 1;
-          const rowSpan = item?.gridSpan?.rowSpan || 1;
-          const spanClass =
-            `${colSpan > 1 ? `md:col-span-${colSpan}` : ''} ${rowSpan > 1 ? `md:row-span-${rowSpan}` : ''}`.trim();
+          const IconComponent = getIconComponent(item.icon);
+          const spanClass = getSpanClassName(item.gridSpan);
+          const title = item.title ?? 'What I Do';
+          const description = item.description ?? '';
+          const itemKey = item._id ?? `${title}-${i}`;
 
           return (
-            <li key={item.title} className={spanClass}>
+            <li key={itemKey} className={spanClass}>
               <AnimatedCard
                 delay={i * 0.05}
                 gradient={item.gradient}
@@ -110,13 +179,13 @@ export function WhatIDo({ items }: WhatIDoProps) {
                   id={`whatido-title-${i}`}
                   className='text-xl font-semibold mb-2 text-foreground'
                 >
-                  {item.title}
+                  {title}
                 </h3>
                 <p
                   id={`whatido-desc-${i}`}
                   className='text-muted-foreground text-sm leading-relaxed'
                 >
-                  {item.description}
+                  {description}
                 </p>
               </AnimatedCard>
             </li>
