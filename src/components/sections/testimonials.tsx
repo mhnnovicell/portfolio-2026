@@ -67,11 +67,7 @@ const StarRating = memo(function StarRating({ rating }: { rating: number }) {
   const clampedRating = Math.max(0, Math.min(MAX_RATING, rating));
 
   return (
-    <div
-      className='flex gap-1 mt-4'
-      aria-label={`Vurdering: ${clampedRating} ud af 5 stjerner`}
-      title={`${clampedRating} ud af 5 stjerner`}
-    >
+    <div className='flex gap-1 mt-4'>
       {Array.from({ length: clampedRating }, (_, index) => (
         <Star
           key={index}
