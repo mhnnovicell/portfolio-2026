@@ -95,9 +95,16 @@ export function ExperienceSection({
       aria-label='Arbejdserfaring'
     >
       <div className='max-w-7xl mx-auto relative z-10'>
-        <ul className='relative' role='list' aria-label='Liste over arbejdserfaring'>
+        <ul
+          className='relative'
+          role='list'
+          aria-label='Liste over arbejdserfaring'
+        >
           {/* Timeline line */}
-          <div aria-hidden='true' className='absolute left-0 md:left-1/2 top-0 bottom-0 w-px bg-linear-to-b from-transparent via-border to-transparent transform md:-translate-x-1/2' />
+          <div
+            aria-hidden='true'
+            className='absolute left-0 md:left-1/2 top-0 bottom-0 w-px bg-linear-to-b from-transparent via-border to-transparent transform md:-translate-x-1/2'
+          />
 
           {experiences.map((exp, i) => (
             <motion.li
@@ -112,7 +119,10 @@ export function ExperienceSection({
               }`}
             >
               {/* Timeline dot */}
-              <div aria-hidden='true' className='absolute left-0 md:left-1/2 w-4 h-4 bg-primary rounded-full transform md:-translate-x-1/2 -translate-x-1/2 mt-8 z-10'>
+              <div
+                aria-hidden='true'
+                className='absolute left-0 md:left-1/2 w-4 h-4 bg-primary rounded-full transform md:-translate-x-1/2 -translate-x-1/2 mt-8 z-10'
+              >
                 <div className='absolute inset-0 bg-primary rounded-full animate-ping opacity-20' />
               </div>
 
@@ -129,13 +139,19 @@ export function ExperienceSection({
                   className='group relative overflow-hidden rounded-2xl border border-border bg-linear-to-br from-card to-secondary/30 p-6 transition-all duration-500 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2'
                 >
                   {/* Hover glow */}
-                  <div className='absolute inset-0 bg-linear-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500' aria-hidden='true' />
+                  <div
+                    className='absolute inset-0 bg-linear-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500'
+                    aria-hidden='true'
+                  />
 
                   <div className='relative z-10'>
                     {/* Header */}
                     <div className='flex flex-wrap items-start justify-between gap-4 mb-4'>
                       <div>
-                        <h3 id={`experience-role-${exp._id}`} className='text-xl font-bold text-foreground'>
+                        <h3
+                          id={`experience-role-${exp._id}`}
+                          className='text-xl font-bold text-foreground'
+                        >
                           {exp.role}
                         </h3>
                         <div className='flex items-center gap-2 text-primary mt-1'>
@@ -158,12 +174,15 @@ export function ExperienceSection({
                     </div>
 
                     {/* Description */}
-                    <p id={`experience-desc-${exp._id}`} className='text-muted-foreground text-sm mb-4 leading-relaxed'>
+                    <p
+                      id={`experience-desc-${exp._id}`}
+                      className='text-muted-foreground text-sm mb-4 leading-relaxed'
+                    >
                       {exp.description}
                     </p>
 
                     {/* Tech stack */}
-                    <ul 
+                    <ul
                       className='flex flex-wrap gap-2'
                       role='list'
                       aria-label={`Teknologier brugt som ${exp.role}`}
