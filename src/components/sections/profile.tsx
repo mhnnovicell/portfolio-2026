@@ -81,7 +81,7 @@ export function ProfileSection({ data }: ProfileSectionProps) {
                 sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
               />
             </div>
-            {profile.availableForHire && (
+            {profile.availableForHire ? (
               <motion.div
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
@@ -91,7 +91,7 @@ export function ProfileSection({ data }: ProfileSectionProps) {
                 aria-label='Available for work'
                 title='Available for work'
               />
-            )}
+            ) : null}
           </div>
           <div className='flex items-center gap-2 text-sm text-muted-foreground'>
             <MapPin size={14} />
@@ -162,11 +162,11 @@ export function ProfileSection({ data }: ProfileSectionProps) {
           variants={itemVariants}
           className='bg-linear-to-br from-primary/10 to-card border border-border rounded-3xl p-5 flex flex-col items-center justify-center gap-3'
         >
-          {profile.availableForHire && (
+          {profile.availableForHire ? (
             <span className='text-green-500 text-xs font-medium uppercase tracking-wider'>
               Available for hire
             </span>
-          )}
+          ) : null}
           <div className='flex gap-2 w-full'>
             <motion.a
               href={`mailto:${profile?.social?.email || ''}`}
@@ -204,7 +204,7 @@ export function ProfileSection({ data }: ProfileSectionProps) {
           variants={itemVariants}
           className='bg-linear-to-br from-card to-card/50 border border-border rounded-3xl p-5 flex items-center justify-center gap-4'
         >
-          {profile?.social?.github && (
+          {profile?.social?.github ? (
             <motion.a
               href={profile.social.github}
               target='_blank'
@@ -215,8 +215,8 @@ export function ProfileSection({ data }: ProfileSectionProps) {
             >
               <Github size={20} aria-hidden='true' />
             </motion.a>
-          )}
-          {profile?.social?.linkedin && (
+          ) : null}
+          {profile?.social?.linkedin ? (
             <motion.a
               href={profile.social.linkedin}
               target='_blank'
@@ -227,8 +227,8 @@ export function ProfileSection({ data }: ProfileSectionProps) {
             >
               <Linkedin size={20} aria-hidden='true' />
             </motion.a>
-          )}
-          {profile?.social?.twitter && (
+          ) : null}
+          {profile?.social?.twitter ? (
             <motion.a
               href={profile.social.twitter}
               target='_blank'
@@ -239,8 +239,8 @@ export function ProfileSection({ data }: ProfileSectionProps) {
             >
               <Twitter size={20} aria-hidden='true' />
             </motion.a>
-          )}
-          {profile?.social?.email && (
+          ) : null}
+          {profile?.social?.email ? (
             <motion.a
               href={`mailto:${profile.social.email}`}
               whileHover={{ scale: 1.1, y: -2 }}
@@ -249,7 +249,7 @@ export function ProfileSection({ data }: ProfileSectionProps) {
             >
               <Mail size={20} aria-hidden='true' />
             </motion.a>
-          )}
+          ) : null}
         </motion.div>
       </motion.div>
     </section>

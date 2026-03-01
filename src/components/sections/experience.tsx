@@ -16,73 +16,75 @@ function formatPeriod(startDate: string | undefined, endDate?: string) {
   return `${start} - ${end}`;
 }
 
+const DEFAULT_EXPERIENCES = [
+  {
+    _id: '1',
+    company: 'TechCorp Inc.',
+    role: 'Senior Frontend Developer',
+    startDate: '2022-01-01',
+    endDate: undefined,
+    location: 'San Francisco, CA',
+    description:
+      'Leading frontend architecture and development for enterprise-scale applications. Mentoring junior developers and establishing coding standards.',
+    techStack: [
+      'Next.js',
+      'TypeScript',
+      'React',
+      'GraphQL',
+      'Tailwind CSS',
+      'Framer Motion',
+    ],
+    achievements: [
+      'Reduced bundle size by 40% through code splitting',
+      'Implemented design system used across 5 products',
+      'Led migration from Vue to React for main platform',
+    ],
+  },
+  {
+    _id: '2',
+    company: 'StartupXYZ',
+    role: 'Frontend Developer',
+    startDate: '2020-01-01',
+    endDate: '2022-12-31',
+    location: 'Remote',
+    description:
+      'Built and maintained customer-facing web applications. Collaborated with design team to implement pixel-perfect interfaces.',
+    techStack: ['React', 'Redux', 'Node.js', 'PostgreSQL', 'SCSS', 'Jest'],
+    achievements: [
+      'Shipped 3 major product features from concept to production',
+      'Improved Core Web Vitals scores by 60%',
+      'Built reusable component library with 50+ components',
+    ],
+  },
+  {
+    _id: '3',
+    company: 'Digital Agency Co.',
+    role: 'Junior Developer',
+    startDate: '2018-01-01',
+    endDate: '2020-12-31',
+    location: 'New York, NY',
+    description:
+      'Developed responsive websites and web applications for various clients across industries including e-commerce, healthcare, and fintech.',
+    techStack: [
+      'JavaScript',
+      'Vue.js',
+      'HTML/CSS',
+      'WordPress',
+      'PHP',
+      'MySQL',
+    ],
+    achievements: [
+      'Delivered 20+ client projects on time and budget',
+      'Introduced automated testing, reducing bugs by 30%',
+      "Won 'Rising Star' award in first year",
+    ],
+  },
+];
+
 export function ExperienceSection({
   experiences: sanityExperiences,
 }: ExperienceSectionProps) {
-  const experiences = sanityExperiences || [
-    {
-      _id: '1',
-      company: 'TechCorp Inc.',
-      role: 'Senior Frontend Developer',
-      startDate: '2022-01-01',
-      endDate: undefined,
-      location: 'San Francisco, CA',
-      description:
-        'Leading frontend architecture and development for enterprise-scale applications. Mentoring junior developers and establishing coding standards.',
-      techStack: [
-        'Next.js',
-        'TypeScript',
-        'React',
-        'GraphQL',
-        'Tailwind CSS',
-        'Framer Motion',
-      ],
-      achievements: [
-        'Reduced bundle size by 40% through code splitting',
-        'Implemented design system used across 5 products',
-        'Led migration from Vue to React for main platform',
-      ],
-    },
-    {
-      _id: '2',
-      company: 'StartupXYZ',
-      role: 'Frontend Developer',
-      startDate: '2020-01-01',
-      endDate: '2022-12-31',
-      location: 'Remote',
-      description:
-        'Built and maintained customer-facing web applications. Collaborated with design team to implement pixel-perfect interfaces.',
-      techStack: ['React', 'Redux', 'Node.js', 'PostgreSQL', 'SCSS', 'Jest'],
-      achievements: [
-        'Shipped 3 major product features from concept to production',
-        'Improved Core Web Vitals scores by 60%',
-        'Built reusable component library with 50+ components',
-      ],
-    },
-    {
-      _id: '3',
-      company: 'Digital Agency Co.',
-      role: 'Junior Developer',
-      startDate: '2018-01-01',
-      endDate: '2020-12-31',
-      location: 'New York, NY',
-      description:
-        'Developed responsive websites and web applications for various clients across industries including e-commerce, healthcare, and fintech.',
-      techStack: [
-        'JavaScript',
-        'Vue.js',
-        'HTML/CSS',
-        'WordPress',
-        'PHP',
-        'MySQL',
-      ],
-      achievements: [
-        'Delivered 20+ client projects on time and budget',
-        'Introduced automated testing, reducing bugs by 30%',
-        "Won 'Rising Star' award in first year",
-      ],
-    },
-  ];
+  const experiences = sanityExperiences || DEFAULT_EXPERIENCES;
 
   return (
     <Section

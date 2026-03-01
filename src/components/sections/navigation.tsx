@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { Github, Linkedin, Twitter, Mail, Menu } from 'lucide-react';
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState } from 'react';
 import type { Navigation } from '../../../sanity.types';
 import { MobileNavigation } from '@/components/ui/mobileNavigation';
 
@@ -26,32 +26,27 @@ const getSocialIcon = (platform: string) => {
   }
 };
 
+const DEFAULT_NAV_ITEMS = [
+  { label: 'About', href: '#about', _key: 'about' },
+  { label: 'Projects', href: '#projects', _key: 'projects' },
+  { label: 'Skills', href: '#skills', _key: 'skills' },
+  { label: 'Contact', href: '#contact', _key: 'contact' },
+];
+
+const DEFAULT_SOCIAL_LINKS = [
+  { platform: 'github', url: 'https://github.com' },
+  { platform: 'linkedin', url: 'https://linkedin.com' },
+  { platform: 'twitter', url: 'https://twitter.com' },
+];
+
 export function Navigation({ data }: NavigationProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('');
 
   const logo = data?.logo || 'mikkelraev';
   const logoSuffix = data?.logoSuffix || '.dk';
-  const navItems = useMemo(
-    () =>
-      data?.navItems || [
-        { label: 'About', href: '#about', _key: 'about' },
-        { label: 'Projects', href: '#projects', _key: 'projects' },
-        { label: 'Skills', href: '#skills', _key: 'skills' },
-        { label: 'Contact', href: '#contact', _key: 'contact' },
-      ],
-    [data?.navItems]
-  );
-
-  const socialLinks = useMemo(
-    () =>
-      data?.socialLinks || [
-        { platform: 'github', url: 'https://github.com' },
-        { platform: 'linkedin', url: 'https://linkedin.com' },
-        { platform: 'twitter', url: 'https://twitter.com' },
-      ],
-    [data?.socialLinks]
-  );
+  const navItems = data?.navItems || DEFAULT_NAV_ITEMS;
+  const socialLinks = data?.socialLinks || DEFAULT_SOCIAL_LINKS;
 
   // Track active section based on scroll position
   useEffect(() => {
@@ -137,7 +132,7 @@ export function Navigation({ data }: NavigationProps) {
                     aria-current={isActive ? 'page' : undefined}
                   >
                     {item.label}
-                    {isActive && (
+                    {isActive ? (
                       <motion.div
                         layoutId='activeSection'
                         className='absolute -bottom-1 left-0 right-0 h-0.5 bg-primary'
@@ -149,7 +144,7 @@ export function Navigation({ data }: NavigationProps) {
                         }}
                         aria-hidden='true'
                       />
-                    )}
+                    ) : null}
                   </Link>
                 </motion.div>
               );

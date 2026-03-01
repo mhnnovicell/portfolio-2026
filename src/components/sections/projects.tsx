@@ -95,7 +95,7 @@ export function ProjectsSection({
 
                 {/* Hover overlay with links */}
                 <div className='absolute inset-0 bg-background/80 flex items-center justify-center gap-4 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-300'>
-                  {project.githubUrl && (
+                  {project.githubUrl ? (
                     <motion.a
                       href={project.githubUrl}
                       target='_blank'
@@ -107,8 +107,8 @@ export function ProjectsSection({
                     >
                       <Github size={20} aria-hidden='true' />
                     </motion.a>
-                  )}
-                  {project.liveUrl && (
+                  ) : null}
+                  {project.liveUrl ? (
                     <motion.a
                       href={project.liveUrl}
                       target='_blank'
@@ -120,7 +120,7 @@ export function ProjectsSection({
                     >
                       <ExternalLink size={20} aria-hidden='true' />
                     </motion.a>
-                  )}
+                  ) : null}
                 </div>
               </div>
 

@@ -109,7 +109,7 @@ export function MobileNavigation({
       if (!menuElement) return;
 
       const focusableElements = menuElement.querySelectorAll<HTMLElement>(
-        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
       );
       const firstElement = focusableElements[0];
       const lastElement = focusableElements[focusableElements.length - 1];
@@ -135,7 +135,7 @@ export function MobileNavigation({
 
   return (
     <AnimatePresence>
-      {isOpen && (
+      {isOpen ? (
         <>
           {/* Screen reader announcement */}
           <div className='sr-only' role='status' aria-live='polite'>
@@ -254,7 +254,7 @@ export function MobileNavigation({
             </nav>
           </motion.div>
         </>
-      )}
+      ) : null}
     </AnimatePresence>
   );
 }
