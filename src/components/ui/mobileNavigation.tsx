@@ -181,8 +181,8 @@ export function MobileNavigation({
                 onClick={onClose}
                 whileHover={{ scale: 1.1, rotate: 90 }}
                 whileTap={{ scale: 0.9 }}
-                className='p-2 rounded-full bg-secondary text-foreground hover:bg-muted transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background'
-                aria-label='Close navigation menu'
+                className='p-2 rounded-full bg-secondary text-foreground hover:bg-muted transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2'
+                aria-label='Luk navigationsmenu'
                 type='button'
               >
                 <X size={24} aria-hidden='true' />
@@ -191,66 +191,69 @@ export function MobileNavigation({
 
             {/* Navigation Items */}
             <nav
-              className='flex-1 flex flex-col px-6 py-8 space-y-2 overflow-y-auto'
-              aria-label='Main navigation'
+              className='flex-1 flex flex-col px-6 py-8 overflow-y-auto'
+              aria-label='Mobil navigation'
             >
-              {navItems?.map((item, i) => {
-                const isActive = activeSection === item.href;
-                return (
-                  <motion.div
-                    key={item.label}
-                    custom={i}
-                    variants={itemVariants}
-                    initial='hidden'
-                    animate='visible'
-                  >
-                    <Link
-                      ref={i === 0 ? firstFocusableRef : null}
-                      href={item.href ?? ''}
-                      onClick={onClose}
-                      className='block focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background rounded-2xl'
-                      aria-current={isActive ? 'page' : undefined}
+              <ul className='flex flex-col space-y-2' role='list'>
+                {navItems?.map((item, i) => {
+                  const isActive = activeSection === item.href;
+                  return (
+                    <motion.li
+                      key={item.label}
+                      custom={i}
+                      variants={itemVariants}
+                      initial='hidden'
+                      animate='visible'
+                      role='listitem'
                     >
-                      <motion.div
-                        whileHover={{ x: 10 }}
-                        whileTap={{ scale: 0.98 }}
-                        className={`group relative overflow-hidden rounded-2xl border transition-all duration-500 ${
-                          isActive
-                            ? 'border-primary bg-linear-to-br from-primary/10 to-secondary/30'
-                            : 'border-border bg-linear-to-br from-card to-secondary/30'
-                        } p-6`}
+                      <Link
+                        ref={i === 0 ? firstFocusableRef : null}
+                        href={item.href ?? ''}
+                        onClick={onClose}
+                        className='block focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-2xl'
+                        aria-current={isActive ? 'page' : undefined}
                       >
-                        {/* Hover glow effect */}
-                        <div className='absolute inset-0 bg-linear-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500' />
+                        <motion.div
+                          whileHover={{ x: 10 }}
+                          whileTap={{ scale: 0.98 }}
+                          className={`group relative overflow-hidden rounded-2xl border transition-all duration-500 ${
+                            isActive
+                              ? 'border-primary bg-linear-to-br from-primary/10 to-secondary/30'
+                              : 'border-border bg-linear-to-br from-card to-secondary/30'
+                          } p-6`}
+                        >
+                          {/* Hover glow effect */}
+                          <div className='absolute inset-0 bg-linear-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500' />
 
-                        <div className='relative z-10 flex items-center justify-between'>
-                          <span
-                            className={`text-2xl font-semibold transition-colors ${
-                              isActive
-                                ? 'text-primary'
-                                : 'text-foreground group-hover:text-primary'
-                            }`}
-                          >
-                            {item.label}
-                          </span>
-                          <motion.div
-                            initial={{ x: -10, opacity: 0 }}
-                            whileHover={{ x: 0, opacity: 1 }}
-                            className={`transition-colors ${
-                              isActive
-                                ? 'text-primary'
-                                : 'text-muted-foreground'
-                            }`}
-                            aria-hidden='true'
-                          >
-                            →
-                          </motion.div>
-                        </div>
-                      </motion.div>
-                    </Link>
-                  </motion.div>
-                );
-              })}
+                          <div className='relative z-10 flex items-center justify-between'>
+                            <span
+                              className={`text-2xl font-semibold transition-colors ${
+                                isActive
+                                  ? 'text-primary'
+                                  : 'text-foreground group-hover:text-primary'
+                              }`}
+                            >
+                              {item.label}
+                            </span>
+                            <motion.div
+                              initial={{ x: -10, opacity: 0 }}
+                              whileHover={{ x: 0, opacity: 1 }}
+                              className={`transition-colors ${
+                                isActive
+                                  ? 'text-primary'
+                                  : 'text-muted-foreground'
+                              }`}
+                              aria-hidden='true'
+                            >
+                              →
+                            </motion.div>
+                          </div>
+                        </motion.div>
+                      </Link>
+                    </motion.li>
+                  );
+                })}
+              </ul>
             </nav>
           </motion.div>
         </>

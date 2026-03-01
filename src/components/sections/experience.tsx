@@ -100,12 +100,6 @@ export function ExperienceSection({
           role='list'
           aria-label='Liste over arbejdserfaring'
         >
-          {/* Timeline line */}
-          <div
-            aria-hidden='true'
-            className='absolute left-0 md:left-1/2 top-0 bottom-0 w-px bg-linear-to-b from-transparent via-border to-transparent transform md:-translate-x-1/2'
-          />
-
           {experiences.map((exp, i) => (
             <motion.li
               key={exp._id}

@@ -88,31 +88,39 @@ export default async function Home() {
   ]);
 
   return (
-    <main className='min-h-screen bg-background'>
+    <div className='min-h-screen bg-background relative flex flex-col'>
+      <a
+        href='#main-content'
+        className='sr-only focus:not-sr-only focus:absolute focus:z-50 focus:p-4 focus:bg-background focus:text-foreground focus:outline-hidden focus:ring-2 focus:ring-ring focus:ring-offset-2'
+      >
+        Spring til hovedindhold
+      </a>
       <Navigation data={navigation} />
-      <ProfileSection data={profile} />
-      <WhatIDo items={whatIDo} />
+      <main id='main-content' className='flex-1' role='main' tabIndex={-1}>
+        <ProfileSection data={profile} />
+        <WhatIDo items={whatIDo} />
 
-      {/* Stream below-the-fold content so it doesn't block initial render */}
-      <Suspense fallback={null}>
-        <SkillsAsync promise={skillsPromise} />
-      </Suspense>
-      <Suspense fallback={null}>
-        <EducationAsync
-          educationPromise={educationPromise}
-          certificationsPromise={certificationsPromise}
-        />
-      </Suspense>
-      <Suspense fallback={null}>
-        <ExperienceAsync promise={experiencesPromise} />
-      </Suspense>
-      <Suspense fallback={null}>
-        <ProjectsAsync promise={projectsPromise} />
-      </Suspense>
-      <Suspense fallback={null}>
-        <TestimonialsAsync promise={testimonialsPromise} />
-      </Suspense>
+        {/* Stream below-the-fold content so it doesn't block initial render */}
+        <Suspense fallback={null}>
+          <SkillsAsync promise={skillsPromise} />
+        </Suspense>
+        <Suspense fallback={null}>
+          <EducationAsync
+            educationPromise={educationPromise}
+            certificationsPromise={certificationsPromise}
+          />
+        </Suspense>
+        <Suspense fallback={null}>
+          <ExperienceAsync promise={experiencesPromise} />
+        </Suspense>
+        <Suspense fallback={null}>
+          <ProjectsAsync promise={projectsPromise} />
+        </Suspense>
+        <Suspense fallback={null}>
+          <TestimonialsAsync promise={testimonialsPromise} />
+        </Suspense>
+      </main>
       <BackToTop />
-    </main>
+    </div>
   );
 }
