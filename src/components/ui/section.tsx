@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import type { ReactNode } from 'react';
 
-interface SectionProps {
+interface SectionProps extends React.HTMLAttributes<HTMLElement> {
   id?: string;
   title: string;
   description?: string;
@@ -19,6 +19,7 @@ export function Section({
   children,
   className = '',
   background = 'default',
+  ...props
 }: SectionProps) {
   const backgrounds = {
     default: 'bg-background',
@@ -29,7 +30,8 @@ export function Section({
   return (
     <section
       id={id}
-      className={`py-24 px-6 min-h-screen flex flex-col justify-center md:px-6 pt-24 pb-16 relative overflow-hidden ${backgrounds[background]} ${className}`}
+      className={`py-24 px-6 min-h-screen flex flex-col justify-center md:px-6 pt-24 pb-16 relative overflow-hidden ${backgrounds[background]} ${className} outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2`}
+      {...props}
     >
       <div className='max-w-7xl mx-auto relative z-10'>
         <motion.div

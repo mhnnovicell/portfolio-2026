@@ -62,10 +62,16 @@ export function ProjectsSection({
       id='projects'
       title='Projekter'
       description='Et udvalg af nylige projekter, der viser mine færdigheder og min passion for at bygge gode produkter.'
+      tabIndex={0}
+      aria-label='Projekter portfolio'
     >
-      <div className='grid grid-cols-1 md:grid-cols-2 gap-8'>
+      <ul
+        className='grid grid-cols-1 md:grid-cols-2 gap-8'
+        role='list'
+        aria-label='Liste over projekter'
+      >
         {projects.map((project, i) => (
-          <motion.div
+          <motion.li
             key={project._id}
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -75,9 +81,13 @@ export function ProjectsSection({
               delay: i * 0.15,
               ease: 'easeOut',
             }}
-            className='group relative'
+            className='group relative list-none'
           >
-            <article className='relative overflow-hidden rounded-2xl border border-border bg-card transition-all duration-500 group-hover:border-muted-foreground/50'>
+            <article
+              className='relative overflow-hidden rounded-2xl border border-border bg-card transition-all duration-500 group-hover:border-muted-foreground/50 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background'
+              tabIndex={0}
+              aria-labelledby={`project-title-${project._id}`}
+            >
               {/* Image container */}
               <div className='relative h-64 overflow-hidden'>
                 <Image
@@ -86,7 +96,7 @@ export function ProjectsSection({
                       ? project.image
                       : (project.image?.url ?? '')
                   }
-                  alt={`Screenshot of ${project.title ?? 'project'}`}
+                  alt={`Projekt: ${project.title}`}
                   fill
                   sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
                   className='object-cover transition-transform duration-700 group-hover:scale-110'
@@ -126,22 +136,36 @@ export function ProjectsSection({
 
               {/* Content */}
               <div className='p-6'>
-                <h3 className='text-xl font-semibold mb-2 text-foreground group-hover:text-primary transition-colors'>
+                <h3
+                  id={`project-title-${project._id}`}
+                  className='text-xl font-semibold mb-2 text-foreground group-hover:text-primary transition-colors'
+                >
                   {project.title}
                 </h3>
                 <p className='text-muted-foreground text-sm mb-4 line-clamp-2'>
                   {project.description}
                 </p>
-                <div className='flex flex-wrap gap-2'>
+                <ul
+                  className='flex flex-wrap gap-2'
+                  role='list'
+                  aria-label={`Teknologier brugt i ${project.title}`}
+                >
                   {project?.tags?.map((tag) => (
-                    <Tag key={tag}>{tag}</Tag>
+                    <li
+                      key={tag}
+                      role='listitem'
+                      tabIndex={0}
+                      className='focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-md'
+                    >
+                      <Tag>{tag}</Tag>
+                    </li>
                   ))}
-                </div>
+                </ul>
               </div>
             </article>
-          </motion.div>
+          </motion.li>
         ))}
-      </div>
+      </ul>
     </Section>
   );
 }

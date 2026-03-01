@@ -173,7 +173,7 @@ export function ProfileSection({ data }: ProfileSectionProps) {
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
               className='flex-1 px-4 py-2.5 bg-primary text-primary-foreground rounded-full font-medium text-sm text-center transition-all duration-300 hover:shadow-lg hover:shadow-primary/20'
-              aria-label={`Contact me via email at ${profile?.social?.email || 'email'}`}
+              aria-label={`Kontakt mig via email ${profile?.social?.email || 'email'}`}
             >
               Kontakt mig
             </motion.a>
@@ -200,57 +200,66 @@ export function ProfileSection({ data }: ProfileSectionProps) {
         </motion.div>
 
         {/* Social Links Card */}
-        <motion.div
+        <motion.ul
           variants={itemVariants}
           className='bg-linear-to-br from-card to-card/50 border border-border rounded-3xl p-5 flex items-center justify-center gap-4'
+          aria-label='Social media profiles'
         >
           {profile?.social?.github ? (
-            <motion.a
-              href={profile.social.github}
-              target='_blank'
-              rel='noopener noreferrer'
-              whileHover={{ scale: 1.1, y: -2 }}
-              className='p-2.5 rounded-full bg-muted/50 text-muted-foreground hover:text-foreground hover:bg-muted transition-colors'
-              aria-label='Visit my GitHub profile'
-            >
-              <Github size={20} aria-hidden='true' />
-            </motion.a>
+            <li>
+              <motion.a
+                href={profile.social.github}
+                target='_blank'
+                rel='noopener noreferrer'
+                whileHover={{ scale: 1.1, y: -2 }}
+                className='flex p-2.5 rounded-full bg-muted/50 text-muted-foreground hover:text-foreground hover:bg-muted transition-colors'
+                aria-label='Min GitHub profil (opens in new tab)'
+              >
+                <Github size={20} aria-hidden='true' />
+              </motion.a>
+            </li>
           ) : null}
           {profile?.social?.linkedin ? (
-            <motion.a
-              href={profile.social.linkedin}
-              target='_blank'
-              rel='noopener noreferrer'
-              whileHover={{ scale: 1.1, y: -2 }}
-              className='p-2.5 rounded-full bg-muted/50 text-muted-foreground hover:text-foreground hover:bg-muted transition-colors'
-              aria-label='Connect with me on LinkedIn'
-            >
-              <Linkedin size={20} aria-hidden='true' />
-            </motion.a>
+            <li>
+              <motion.a
+                href={profile.social.linkedin}
+                target='_blank'
+                rel='noopener noreferrer'
+                whileHover={{ scale: 1.1, y: -2 }}
+                className='flex p-2.5 rounded-full bg-muted/50 text-muted-foreground hover:text-foreground hover:bg-muted transition-colors'
+                aria-label='Min LinkedIn profil (opens in new tab)'
+              >
+                <Linkedin size={20} aria-hidden='true' />
+              </motion.a>
+            </li>
           ) : null}
           {profile?.social?.twitter ? (
-            <motion.a
-              href={profile.social.twitter}
-              target='_blank'
-              rel='noopener noreferrer'
-              whileHover={{ scale: 1.1, y: -2 }}
-              className='p-2.5 rounded-full bg-muted/50 text-muted-foreground hover:text-foreground hover:bg-muted transition-colors'
-              aria-label='Follow me on Twitter'
-            >
-              <Twitter size={20} aria-hidden='true' />
-            </motion.a>
+            <li>
+              <motion.a
+                href={profile.social.twitter}
+                target='_blank'
+                rel='noopener noreferrer'
+                whileHover={{ scale: 1.1, y: -2 }}
+                className='flex p-2.5 rounded-full bg-muted/50 text-muted-foreground hover:text-foreground hover:bg-muted transition-colors'
+                aria-label='Min Twitter profil (opens in new tab)'
+              >
+                <Twitter size={20} aria-hidden='true' />
+              </motion.a>
+            </li>
           ) : null}
           {profile?.social?.email ? (
-            <motion.a
-              href={`mailto:${profile.social.email}`}
-              whileHover={{ scale: 1.1, y: -2 }}
-              className='p-2.5 rounded-full bg-muted/50 text-muted-foreground hover:text-foreground hover:bg-muted transition-colors'
-              aria-label={`Send me an email at ${profile.social.email}`}
-            >
-              <Mail size={20} aria-hidden='true' />
-            </motion.a>
+            <li>
+              <motion.a
+                href={`mailto:${profile.social.email}`}
+                whileHover={{ scale: 1.1, y: -2 }}
+                className='flex p-2.5 rounded-full bg-muted/50 text-muted-foreground hover:text-foreground hover:bg-muted transition-colors'
+                aria-label={`Send mig en email på ${profile.social.email}`}
+              >
+                <Mail size={20} aria-hidden='true' />
+              </motion.a>
+            </li>
           ) : null}
-        </motion.div>
+        </motion.ul>
       </motion.div>
     </section>
   );

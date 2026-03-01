@@ -91,15 +91,18 @@ export function ExperienceSection({
       id='work'
       title='Arbejdserfaring'
       description='En rejse gennem min professionelle karriere, hvor jeg har bygget produkter der betyder noget.'
+      tabIndex={0}
+      aria-label='Arbejdserfaring'
     >
       <div className='max-w-7xl mx-auto relative z-10'>
-        <div className='relative'>
+        <ul className='relative' role='list' aria-label='Liste over arbejdserfaring'>
           {/* Timeline line */}
-          <div className='absolute left-0 md:left-1/2 top-0 bottom-0 w-px bg-linear-to-b from-transparent via-border to-transparent transform md:-translate-x-1/2' />
+          <div aria-hidden='true' className='absolute left-0 md:left-1/2 top-0 bottom-0 w-px bg-linear-to-b from-transparent via-border to-transparent transform md:-translate-x-1/2' />
 
           {experiences.map((exp, i) => (
-            <motion.div
+            <motion.li
               key={exp._id}
+              role='listitem'
               initial={{ opacity: 0, x: i % 2 === 0 ? -50 : 50 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
@@ -109,7 +112,7 @@ export function ExperienceSection({
               }`}
             >
               {/* Timeline dot */}
-              <div className='absolute left-0 md:left-1/2 w-4 h-4 bg-primary rounded-full transform md:-translate-x-1/2 -translate-x-1/2 mt-8 z-10'>
+              <div aria-hidden='true' className='absolute left-0 md:left-1/2 w-4 h-4 bg-primary rounded-full transform md:-translate-x-1/2 -translate-x-1/2 mt-8 z-10'>
                 <div className='absolute inset-0 bg-primary rounded-full animate-ping opacity-20' />
               </div>
 
@@ -120,16 +123,19 @@ export function ExperienceSection({
                 <motion.div
                   whileHover={{ scale: 1.02, y: -5 }}
                   transition={{ type: 'spring', stiffness: 300 }}
-                  className='group relative overflow-hidden rounded-2xl border border-border bg-linear-to-br from-card to-secondary/30 p-6 transition-all duration-500'
+                  tabIndex={0}
+                  aria-labelledby={`experience-role-${exp._id}`}
+                  aria-describedby={`experience-desc-${exp._id}`}
+                  className='group relative overflow-hidden rounded-2xl border border-border bg-linear-to-br from-card to-secondary/30 p-6 transition-all duration-500 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2'
                 >
                   {/* Hover glow */}
-                  <div className='absolute inset-0 bg-linear-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500' />
+                  <div className='absolute inset-0 bg-linear-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500' aria-hidden='true' />
 
                   <div className='relative z-10'>
                     {/* Header */}
                     <div className='flex flex-wrap items-start justify-between gap-4 mb-4'>
                       <div>
-                        <h3 className='text-xl font-bold text-foreground'>
+                        <h3 id={`experience-role-${exp._id}`} className='text-xl font-bold text-foreground'>
                           {exp.role}
                         </h3>
                         <div className='flex items-center gap-2 text-primary mt-1'>
@@ -152,30 +158,36 @@ export function ExperienceSection({
                     </div>
 
                     {/* Description */}
-                    <p className='text-muted-foreground text-sm mb-4 leading-relaxed'>
+                    <p id={`experience-desc-${exp._id}`} className='text-muted-foreground text-sm mb-4 leading-relaxed'>
                       {exp.description}
                     </p>
 
                     {/* Tech stack */}
-                    <div className='flex flex-wrap gap-2'>
+                    <ul 
+                      className='flex flex-wrap gap-2'
+                      role='list'
+                      aria-label={`Teknologier brugt som ${exp.role}`}
+                    >
                       {exp.techStack?.map((tech) => (
-                        <span
+                        <li
                           key={tech}
-                          className='px-3 py-1 text-xs font-medium bg-secondary rounded-full text-foreground border border-border'
+                          role='listitem'
+                          tabIndex={0}
+                          className='px-3 py-1 text-xs font-medium bg-secondary rounded-full text-foreground border border-border focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2'
                         >
                           {tech}
-                        </span>
+                        </li>
                       ))}
-                    </div>
+                    </ul>
                   </div>
                 </motion.div>
               </div>
 
               {/* Spacer for alternating layout */}
-              <div className='hidden md:block flex-1' />
-            </motion.div>
+              <div aria-hidden='true' className='hidden md:block flex-1' />
+            </motion.li>
           ))}
-        </div>
+        </ul>
       </div>
     </Section>
   );

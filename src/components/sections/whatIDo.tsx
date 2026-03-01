@@ -75,8 +75,13 @@ export function WhatIDo({ items }: WhatIDoProps) {
       id='whatido'
       title='Filosofi'
       description='Kombinerer teknisk ekspertise med kreativ tænkning for at levere exceptionelle digitale produkter.'
+      tabIndex={0}
+      aria-label='Filosofi: Kombinerer teknisk ekspertise med kreativ tænkning'
     >
-      <div className='relative z-10 max-w-6xl mx-auto w-full grid grid-cols-1 md:grid-cols-3 gap-4'>
+      <ul
+        className='relative z-10 max-w-6xl mx-auto w-full grid grid-cols-1 md:grid-cols-3 gap-4'
+        aria-label='Liste over mine filosofier og kompetencer'
+      >
         {whatIDoItems.map((item, i) => {
           const IconComponent = (Icons[item?.icon as keyof typeof Icons] ||
             Icons.Code2) as LucideIcon;
@@ -88,23 +93,36 @@ export function WhatIDo({ items }: WhatIDoProps) {
             `${colSpan > 1 ? `md:col-span-${colSpan}` : ''} ${rowSpan > 1 ? `md:row-span-${rowSpan}` : ''}`.trim();
 
           return (
-            <AnimatedCard
-              key={item.title}
-              delay={i * 0.05}
-              gradient={item.gradient}
-              className={spanClass}
-            >
-              <IconBox icon={IconComponent} className='mb-4' />
-              <h3 className='text-xl font-semibold mb-2 text-foreground'>
-                {item.title}
-              </h3>
-              <p className='text-muted-foreground text-sm leading-relaxed'>
-                {item.description}
-              </p>
-            </AnimatedCard>
+            <li key={item.title} className={spanClass}>
+              <AnimatedCard
+                delay={i * 0.05}
+                gradient={item.gradient}
+                className='h-full focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 outline-hidden cursor-default'
+                tabIndex={0}
+                role='article'
+                aria-labelledby={`whatido-title-${i}`}
+                aria-describedby={`whatido-desc-${i}`}
+              >
+                <div aria-hidden='true'>
+                  <IconBox icon={IconComponent} className='mb-4' />
+                </div>
+                <h3
+                  id={`whatido-title-${i}`}
+                  className='text-xl font-semibold mb-2 text-foreground'
+                >
+                  {item.title}
+                </h3>
+                <p
+                  id={`whatido-desc-${i}`}
+                  className='text-muted-foreground text-sm leading-relaxed'
+                >
+                  {item.description}
+                </p>
+              </AnimatedCard>
+            </li>
           );
         })}
-      </div>
+      </ul>
     </Section>
   );
 }

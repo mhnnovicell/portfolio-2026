@@ -55,6 +55,8 @@ export function BackToTop() {
       top: 0,
       behavior: 'smooth',
     });
+    // Set focus back to the top of the body
+    document.body.focus();
   };
 
   return (
@@ -68,10 +70,11 @@ export function BackToTop() {
           whileHover={{ scale: 1.1, y: -5 }}
           whileTap={{ scale: 0.9 }}
           onClick={scrollToTop}
-          className='fixed bottom-8 right-8 z-40 p-4 rounded-full bg-primary text-primary-foreground shadow-lg hover:shadow-primary/20 transition-shadow border border-primary/20'
-          aria-label='Tilbage til toppen'
+          className='fixed bottom-8 right-8 z-40 p-4 rounded-full bg-primary text-primary-foreground shadow-lg hover:shadow-primary/20 transition-shadow border border-primary/20 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2'
+          aria-label='Tilbage til toppen af siden'
+          title='Tilbage til toppen'
         >
-          <div className='relative'>
+          <div className='relative' aria-hidden='true'>
             <ArrowUp size={24} />
             {/* Animated glow effect */}
             <motion.div

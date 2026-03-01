@@ -47,31 +47,54 @@ export function SkillsSection({ skills: sanitySkills }: SkillsSectionProps) {
       id='skills'
       title='Evner'
       description='Teknologier jeg arbejder med for at bringe ideer til live.'
+      tabIndex={0}
+      aria-label='Evner og teknologier'
     >
-      <div className='relative z-10 max-w-6xl mx-auto w-full grid grid-cols-1 md:grid-cols-3 gap-8'>
+      <ul
+        className='relative z-10 max-w-6xl mx-auto w-full grid grid-cols-1 md:grid-cols-3 gap-8'
+        role='list'
+        aria-label='Kategorier af evner'
+      >
         {skillCategories.map((category, categoryIndex) => (
-          <AnimatedCard
-            key={category._id}
-            delay={categoryIndex * 0.2}
-            gradient='from-card to-secondary/20'
-          >
-            <h3 className='text-lg font-semibold mb-6 text-foreground'>
-              {category.category}
-            </h3>
-            <div className='flex flex-wrap gap-3'>
-              {category?.skills?.map((skill, skillIndex) => (
-                <Tag
-                  key={skill}
-                  delay={categoryIndex * 0.1 + skillIndex * 0.05}
-                  size='md'
-                >
-                  {skill}
-                </Tag>
-              ))}
-            </div>
-          </AnimatedCard>
+          <li key={category._id} className='list-none h-full' role='listitem'>
+            <AnimatedCard
+              delay={categoryIndex * 0.2}
+              gradient='from-card to-secondary/20'
+              tabIndex={0}
+              aria-labelledby={`category-title-${category._id}`}
+              className='h-full focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-2xl'
+            >
+              <h3
+                id={`category-title-${category._id}`}
+                className='text-lg font-semibold mb-6 text-foreground'
+              >
+                {category.category}
+              </h3>
+              <ul
+                className='flex flex-wrap gap-3'
+                role='list'
+                aria-label={`Evner inden for ${category.category}`}
+              >
+                {category?.skills?.map((skill, skillIndex) => (
+                  <li
+                    key={skill}
+                    tabIndex={0}
+                    role='listitem'
+                    className='focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-md'
+                  >
+                    <Tag
+                      delay={categoryIndex * 0.1 + skillIndex * 0.05}
+                      size='md'
+                    >
+                      {skill}
+                    </Tag>
+                  </li>
+                ))}
+              </ul>
+            </AnimatedCard>
+          </li>
         ))}
-      </div>
+      </ul>
     </Section>
   );
 }

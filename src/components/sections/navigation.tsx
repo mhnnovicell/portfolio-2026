@@ -91,7 +91,7 @@ export function Navigation({ data }: NavigationProps) {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: 'easeOut' }}
         className='fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-background/80 border-b border-border'
-        role='banner'
+        role='navigation'
       >
         <div className='max-w-7xl mx-auto px-6 py-4 flex items-center justify-between'>
           <motion.div
@@ -154,9 +154,8 @@ export function Navigation({ data }: NavigationProps) {
           {/* Social Links & Mobile Menu Button */}
           <div className='flex items-center gap-4'>
             {/* Desktop Social Links */}
-            <div
+            <ul
               className='hidden md:flex items-center gap-4'
-              role='navigation'
               aria-label='Social media links'
             >
               {socialLinks.map(({ platform, url }, i) => {
@@ -165,26 +164,24 @@ export function Navigation({ data }: NavigationProps) {
                   ? platform.charAt(0).toUpperCase() + platform.slice(1)
                   : 'Social';
                 return (
-                  <motion.a
-                    key={platform}
-                    href={url}
-                    target='_blank'
-                    rel='noopener noreferrer'
-                    initial={{ opacity: 0, scale: 0 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.3 + 0.1 * i, duration: 0.3 }}
-                    whileHover={{ scale: 1.1, y: -2 }}
-                    aria-label={`${platformName} (opens in new tab)`}
-                    className='text-muted-foreground hover:text-foreground transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 rounded-sm p-1'
-                  >
-                    <Icon size={20} aria-hidden='true' />
-                    <span className='sr-only'>
-                      {platformName} (opens in new tab)
-                    </span>
-                  </motion.a>
+                  <li key={platform}>
+                    <motion.a
+                      href={url}
+                      target='_blank'
+                      rel='noopener noreferrer'
+                      initial={{ opacity: 0, scale: 0 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: 0.3 + 0.1 * i, duration: 0.3 }}
+                      whileHover={{ scale: 1.1, y: -2 }}
+                      aria-label={`${platformName} (opens in new tab)`}
+                      className='flex text-muted-foreground hover:text-foreground transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 rounded-sm p-1'
+                    >
+                      <Icon size={20} aria-hidden='true' />
+                    </motion.a>
+                  </li>
                 );
               })}
-            </div>
+            </ul>
 
             {/* Mobile Menu Button */}
             <motion.button

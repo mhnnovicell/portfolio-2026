@@ -1,9 +1,9 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { HTMLMotionProps, motion } from 'framer-motion';
 import type { ReactNode } from 'react';
 
-interface AnimatedCardProps {
+interface AnimatedCardProps extends HTMLMotionProps<'div'> {
   children: ReactNode;
   className?: string;
   delay?: number;
@@ -17,6 +17,7 @@ export function AnimatedCard({
   delay = 0,
   hover = true,
   gradient = 'from-card to-secondary/30',
+  ...props
 }: AnimatedCardProps) {
   return (
     <motion.div
@@ -39,6 +40,7 @@ export function AnimatedCard({
       }
       className={`group relative overflow-hidden rounded-2xl border border-border bg-linear-to-br ${gradient} p-6 transition-all duration-300 ${className}`}
       style={{ willChange: hover ? 'transform' : 'auto' }}
+      {...props}
     >
       {/* Simplified hover glow effect */}
       {hover ? (

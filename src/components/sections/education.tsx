@@ -20,7 +20,6 @@ function formatPeriod(startDate?: string, endDate?: string) {
 
 export function EducationSection({
   education: sanityEducation,
-  certifications: sanityCertifications,
 }: EducationSectionProps) {
   const education = sanityEducation || [
     {
@@ -59,51 +58,74 @@ export function EducationSection({
       title='Uddannelse'
       description='Min akademiske baggrund og certificeringer inden for teknologi og udvikling.'
       background='accent'
+      tabIndex={0}
+      aria-label='Uddannelse og akademisk baggrund'
     >
       {/* Bento grid layout */}
       <div className='relative z-10 max-w-6xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-6'>
-        <div className='lg:col-span-2 space-y-6 w-full'>
+        <ul
+          className='lg:col-span-2 space-y-6 w-full'
+          role='list'
+          aria-label='Liste over uddannelser'
+        >
           {education.map((edu, i) => {
             const Icon = i === 0 ? GraduationCap : BookOpen;
             return (
-              <AnimatedCard
-                key={edu._id}
-                delay={i * 0.1}
-                gradient='from-card to-secondary/20'
-              >
-                <div className='flex flex-col md:flex-row md:items-start justify-between gap-4 mb-4'>
-                  <div className='flex items-start gap-4'>
-                    <IconBox icon={Icon} />
-                    <div>
-                      <h3 className='text-xl font-bold text-foreground'>
-                        {edu.degree}
-                      </h3>
-                      <p className='text-primary font-medium'>
-                        {edu.institution}
-                      </p>
+              <li key={edu._id} className='list-none' role='listitem'>
+                <AnimatedCard
+                  delay={i * 0.1}
+                  gradient='from-card to-secondary/20'
+                  tabIndex={0}
+                  aria-labelledby={`edu-title-${edu._id}`}
+                  className='focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-2xl'
+                >
+                  <div className='flex flex-col md:flex-row md:items-start justify-between gap-4 mb-4'>
+                    <div className='flex items-start gap-4'>
+                      <IconBox icon={Icon} aria-hidden='true' />
+                      <div>
+                        <h3
+                          id={`edu-title-${edu._id}`}
+                          className='text-xl font-bold text-foreground'
+                        >
+                          {edu.degree}
+                        </h3>
+                        <p className='text-primary font-medium'>
+                          {edu.institution}
+                        </p>
+                      </div>
+                    </div>
+                    <div className='flex items-center gap-1 text-sm text-muted-foreground'>
+                      <Calendar size={14} aria-hidden='true' />
+                      <span className='sr-only'>Periode:</span>
+                      <span>{formatPeriod(edu.startDate, edu.endDate)}</span>
                     </div>
                   </div>
-                  <div className='flex items-center gap-1 text-sm text-muted-foreground'>
-                    <Calendar size={14} />
-                    <span>{formatPeriod(edu.startDate, edu.endDate)}</span>
-                  </div>
-                </div>
 
-                <p className='text-muted-foreground text-sm mb-4 leading-relaxed'>
-                  {edu.description}
-                </p>
+                  <p className='text-muted-foreground text-sm mb-4 leading-relaxed'>
+                    {edu.description}
+                  </p>
 
-                <div className='flex flex-wrap gap-2'>
-                  {edu.achievements?.map((achievement) => (
-                    <Tag key={achievement} variant='bordered'>
-                      {achievement}
-                    </Tag>
-                  ))}
-                </div>
-              </AnimatedCard>
+                  <ul
+                    className='flex flex-wrap gap-2'
+                    role='list'
+                    aria-label={`Præstationer for ${edu.degree}`}
+                  >
+                    {edu.achievements?.map((achievement) => (
+                      <li
+                        key={achievement}
+                        tabIndex={0}
+                        role='listitem'
+                        className='focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-md'
+                      >
+                        <Tag variant='bordered'>{achievement}</Tag>
+                      </li>
+                    ))}
+                  </ul>
+                </AnimatedCard>
+              </li>
             );
           })}
-        </div>
+        </ul>
       </div>
     </Section>
   );
