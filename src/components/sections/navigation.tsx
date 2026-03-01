@@ -110,7 +110,7 @@ export function Navigation({ data }: NavigationProps) {
 
           {/* Desktop Navigation */}
           <nav
-            className='hidden md:flex items-center gap-8'
+            className='hidden lg:flex items-center gap-8'
             aria-label='Main navigation'
           >
             {navItems.map((item, i) => {
@@ -155,7 +155,7 @@ export function Navigation({ data }: NavigationProps) {
           <div className='flex items-center gap-4'>
             {/* Desktop Social Links */}
             <ul
-              className='hidden md:flex items-center gap-4'
+              className='hidden lg:flex items-center gap-4'
               aria-label='Social media links'
             >
               {socialLinks.map(({ platform, url }, i) => {
@@ -188,7 +188,7 @@ export function Navigation({ data }: NavigationProps) {
               onClick={() => setIsMobileMenuOpen(true)}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
-              className='md:hidden p-2 rounded-full bg-secondary text-foreground hover:bg-muted transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2'
+              className='lg:hidden p-2 rounded-full bg-secondary text-foreground hover:bg-muted transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2'
               aria-label='Open menu'
               aria-expanded={isMobileMenuOpen}
               aria-controls='mobile-navigation'
