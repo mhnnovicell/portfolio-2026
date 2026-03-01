@@ -63,15 +63,15 @@ export default function Error({ error, reset }: ErrorProps) {
           <p className='text-lg text-muted-foreground mb-2'>
             Vi beklager, men der opstod en uventet fejl.
           </p>
-          {error.digest && (
+          {error.digest ? (
             <p className='text-sm text-muted-foreground/60 font-mono'>
               Error ID: {error.digest}
             </p>
-          )}
+          ) : null}
         </motion.div>
 
         {/* Error Details (Development only) */}
-        {process.env.NODE_ENV === 'development' && (
+        {process.env.NODE_ENV === 'development' ? (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -82,7 +82,7 @@ export default function Error({ error, reset }: ErrorProps) {
               {error.message}
             </p>
           </motion.div>
-        )}
+        ) : null}
 
         {/* Action Buttons */}
         <motion.div
@@ -101,16 +101,19 @@ export default function Error({ error, reset }: ErrorProps) {
             Prøv igen
           </motion.button>
 
-          <Link href='/'>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className='px-6 py-3 bg-secondary text-foreground rounded-full font-medium flex items-center justify-center gap-2 transition-all duration-300 hover:bg-muted w-full sm:w-auto'
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className='w-full sm:w-auto'
+          >
+            <Link
+              href='/'
+              className='px-6 py-3 bg-secondary text-foreground rounded-full font-medium flex items-center justify-center gap-2 transition-all duration-300 hover:bg-muted w-full'
             >
               <Home size={18} />
               Gå til forsiden
-            </motion.button>
-          </Link>
+            </Link>
+          </motion.div>
         </motion.div>
 
         {/* Decorative Elements */}
